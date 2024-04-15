@@ -6,6 +6,7 @@ import 'package:ieducation/common-widget/common-header.dart';
 import 'package:ieducation/common-widget/left-aligin-title.dart';
 import 'package:ieducation/pages/course/controller/course_controller.dart';
 import 'package:ieducation/routes.dart';
+import 'package:ieducation/utils/cached_network_image.dart';
 
 class MyCoursePage extends StatefulWidget {
   const MyCoursePage({super.key});
@@ -115,9 +116,12 @@ class _MyCoursePageState extends State<MyCoursePage> {
                               children: [
                                 SizedBox(
                                   width: imageWidth,
-                                  child: Image.network(
-                                    controller.myCourseList[index].photo
+                                  child: AppCachedNetworkImage(
+                                    imageUrl: controller
+                                        .myCourseList[index].photo
                                         .toString(),
+                                    cachedHeight: 221,
+                                    cachedWidth: 390,
                                   ),
                                 ),
                                 const SizedBox(

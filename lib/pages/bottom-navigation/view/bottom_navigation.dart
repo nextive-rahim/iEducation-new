@@ -57,7 +57,10 @@ class _BottomNavigationState extends State<BottomNavigation> {
         }
       },
       child: Scaffold(
-        body: _children[_currentIndex],
+        body: IndexedStack(
+          index: _currentIndex,
+          children: _children,
+        ),
         bottomNavigationBar: BottomNavigationBar(
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(

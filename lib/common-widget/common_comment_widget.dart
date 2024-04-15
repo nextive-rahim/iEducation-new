@@ -1,12 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:ieducation/colors.dart';
 import 'package:ieducation/common-widget/left-aligin-title.dart';
 import 'package:ieducation/pages/blogs/controller/blog_controller.dart';
 import 'package:ieducation/pages/home/controller/home_controller.dart';
+import 'package:ieducation/utils/cached_network_image.dart';
 import 'package:ieducation/utils/progress_dialog.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+
 class commonCommentWidget extends StatefulWidget {
   const commonCommentWidget({super.key});
 
@@ -15,8 +16,8 @@ class commonCommentWidget extends StatefulWidget {
 }
 
 class _commonCommentWidgetState extends State<commonCommentWidget> {
- final controller = Get.find<BlogController>();
-  final homeController =Get.find<HomeController>();
+  final controller = Get.find<BlogController>();
+  final homeController = Get.find<HomeController>();
 
   String? userId;
 
@@ -102,22 +103,11 @@ class _commonCommentWidgetState extends State<commonCommentWidget> {
                                   border: Border.all(color: Colors.black12)),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(50),
-                                child: CachedNetworkImage(
+                                child: AppCachedNetworkImage(
                                   imageUrl: imageUrl,
                                   fit: BoxFit.cover,
-                                  errorWidget: (context, url, error) {
-                                    return SizedBox(
-                                      height: 40,
-                                      width: 40,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(50),
-                                        child: const Icon(
-                                          Icons.person,
-                                          size: 30,
-                                        ),
-                                      ),
-                                    );
-                                  },
+                                  cachedHeight: 99,
+                                  cachedWidth: 99,
                                 ),
                               ),
                             ),
@@ -152,8 +142,7 @@ class _commonCommentWidgetState extends State<commonCommentWidget> {
                                         SizedBox(
                                           width: responsiveWidth - 50,
                                           child: HtmlWidget(
-                                    body,
-                                            
+                                            body,
                                           ),
                                         ),
                                       ],

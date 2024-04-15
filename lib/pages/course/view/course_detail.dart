@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
@@ -12,6 +11,7 @@ import 'package:ieducation/pages/course/widgets/CommonButton.dart';
 import 'package:ieducation/pages/course/widgets/course_section.dart';
 import 'package:ieducation/pages/course/widgets/course_title_section.dart';
 import 'package:ieducation/pages/orders/controller/order_controller.dart';
+import 'package:ieducation/utils/cached_network_image.dart';
 import 'package:ieducation/utils/progress_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -106,9 +106,11 @@ class _CourseDetailState extends State<CourseDetail> {
             child: photo != 'null'
                 ? ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: Image.network(
-                      photo,
+                    child: AppCachedNetworkImage(
+                      imageUrl: photo,
                       fit: BoxFit.cover,
+                      cachedHeight: 510,
+                      cachedWidth: 910,
                     ),
                   )
                 : const Icon(
@@ -287,12 +289,11 @@ class _CourseDetailState extends State<CourseDetail> {
                           width: 58,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(50),
-                            child: CachedNetworkImage(
+                            child: AppCachedNetworkImage(
                               imageUrl: imageUrl,
                               fit: BoxFit.cover,
-                              errorWidget: (context, url, error) {
-                                return const Icon(Icons.error);
-                              },
+                              cachedHeight: 152,
+                              cachedWidth: 152,
                             ),
                           ),
                         ),

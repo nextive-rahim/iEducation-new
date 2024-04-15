@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ieducation/app.dart';
 import 'package:ieducation/colors.dart';
 import 'package:ieducation/common-widget/common-header.dart';
 import 'package:ieducation/common-widget/left-aligin-title.dart';
@@ -10,7 +11,7 @@ import 'package:ieducation/pages/course/model/category_children_model.dart'
 import 'package:ieducation/pages/course/model/course_children_model.dart';
 import 'package:ieducation/pages/course/model/course_model.dart';
 import 'package:ieducation/routes.dart';
-import 'package:ieducation/app.dart';
+import 'package:ieducation/utils/cached_network_image.dart';
 
 class CourseAndCategoryPage extends StatefulWidget {
   const CourseAndCategoryPage({super.key});
@@ -143,13 +144,12 @@ class _CourseAndCategoryPageState extends State<CourseAndCategoryPage> {
                   children: [
                     SizedBox(
                       width: imageWidth,
-                      child: CachedNetworkImage(
+                      child: AppCachedNetworkImage(
                         imageUrl:
                             courseChildList!.elementAt(index).photo.toString(),
                         fit: BoxFit.cover,
-                        errorWidget: (context, url, error) {
-                          return const Icon(Icons.error);
-                        },
+                        cachedHeight: 221,
+                        cachedWidth: 390,
                       ),
                     ),
                     const SizedBox(

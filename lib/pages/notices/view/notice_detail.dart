@@ -1,10 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:ieducation/colors.dart';
 import 'package:ieducation/common-widget/common-header.dart';
 import 'package:ieducation/pages/notices/controller/notice_controller.dart';
+import 'package:ieducation/utils/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../common-widget/common_comment_widget.dart';
@@ -96,12 +96,10 @@ class _NoticeDetailPageState extends State<NoticeDetailPage> {
                             topRight: Radius.circular(25),
                             topLeft: Radius.circular(25),
                           ),
-                          child: CachedNetworkImage(
+                          child: AppCachedNetworkImage(
                             imageUrl: url,
                             fit: BoxFit.cover,
-                            errorWidget: (context, url, error) {
-                              return const Icon(Icons.error);
-                            },
+                            cachedHeight: 975,
                           ),
                         ),
                         Padding(
@@ -173,8 +171,7 @@ class _NoticeDetailPageState extends State<NoticeDetailPage> {
                           ),
                           width: responsiveWidth,
                           child: HtmlWidget(
-                        description,
-                            
+                            description,
                           ),
                         ),
                         const commonCommentWidget()

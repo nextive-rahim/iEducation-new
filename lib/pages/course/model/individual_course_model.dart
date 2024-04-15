@@ -139,8 +139,7 @@ class IndividualCourseData {
         discountTill: json["discount_till"] == null
             ? null
             : DateTime.parse(json["discount_till"]),
-        discountedPrice:
-            json["discounted_price"],
+        discountedPrice: json["discounted_price"],
         approved: json["approved"],
         active: json["active"],
         courseFeatures: json["courseFeatures"] == null
@@ -208,8 +207,7 @@ class IndividualCourseData {
         "courseFeatures": courseFeatures == null
             ? null
             : List<dynamic>.from(courseFeatures!.map((x) => x)),
-        "subscription_status":
-            subscriptionStatus,
+        "subscription_status": subscriptionStatus,
         "coupons":
             coupons == null ? null : List<dynamic>.from(coupons!.map((x) => x)),
         "sections": sections == null
@@ -218,8 +216,7 @@ class IndividualCourseData {
         "categories": categories == null
             ? null
             : List<dynamic>.from(categories!.map((x) => x.toJson())),
-        "require_guardians_phone":
-            requireGuardiansPhone,
+        "require_guardians_phone": requireGuardiansPhone,
         "rating": rating,
         "users_count": usersCount,
         "fake_user_count": fakeUserCount,
@@ -309,8 +306,7 @@ class Category {
         children: json["children"] == null
             ? null
             : List<dynamic>.from(json["children"].map((x) => x)),
-        childrenCount:
-            json["children_count"],
+        childrenCount: json["children_count"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -429,7 +425,8 @@ class User {
         id: json["id"],
         name: json["name"],
         username: json["username"],
-        photo: json["photo"],
+        photo: json["photo"] ??
+            'https://static.vecteezy.com/system/resources/previews/005/337/799/non_2x/icon-image-not-found-free-vector.jpg',
         phone: json["phone"],
         email: json["email"],
         type: json["type"],
@@ -617,10 +614,8 @@ class Content {
 
   factory Content.fromJson(Map<String, dynamic> json) => Content(
         id: json["id"],
-        contentableType:
-            json["contentable_type"],
-        contentableId:
-            json["contentable_id"],
+        contentableType: json["contentable_type"],
+        contentableId: json["contentable_id"],
         contentId: json["content_id"],
         title: json["title"],
         slug: json["slug"],
@@ -718,8 +713,7 @@ class Exam {
         mode: json["mode"],
         duration: json["duration"],
         perQuestionMark: json["per_question_mark"],
-        negativeMark:
-            json["negative_mark"],
+        negativeMark: json["negative_mark"],
         passMark: json["pass_mark"],
         strict: json["strict"],
         startTime: json["start_time"] == null
@@ -732,8 +726,7 @@ class Exam {
             : DateTime.parse(json["result_publish_time"]),
         totalSubject: json["total_subject"],
         retryLimit: json["retry_limit"],
-        totalQuestions:
-            json["total_questions"],
+        totalQuestions: json["total_questions"],
         mcqCount: json["mcq_count"],
         result: json["result"],
         subjects: json["subjects"] == null

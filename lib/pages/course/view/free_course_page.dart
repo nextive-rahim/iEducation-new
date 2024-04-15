@@ -6,7 +6,7 @@ import 'package:ieducation/common-widget/common-header.dart';
 import 'package:ieducation/common-widget/left-aligin-title.dart';
 import 'package:ieducation/pages/course/controller/course_controller.dart';
 import 'package:ieducation/routes.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ieducation/utils/cached_network_image.dart';
 
 class FreeCoursePage extends StatefulWidget {
   const FreeCoursePage({super.key});
@@ -36,10 +36,10 @@ class _FreeCoursePageState extends State<FreeCoursePage> {
       // if (Get.arguments != null) {
       //   controller.getFreeCourses(
       //       context, Get.arguments[0] == 'free' ? 'free' : "");
-    ///  } else {
+      ///  } else {
 
-        //controller.getFreeCourses(context, "");
-     // }
+      //controller.getFreeCourses(context, "");
+      // }
     });
   }
 
@@ -131,15 +131,14 @@ class _FreeCoursePageState extends State<FreeCoursePage> {
                               children: [
                                 SizedBox(
                                   width: imageWidth,
-                                  child: CachedNetworkImage(
+                                  child: AppCachedNetworkImage(
                                     imageUrl: controller.freeCourseList
                                         .elementAt(index)
                                         .photo
                                         .toString(),
                                     fit: BoxFit.cover,
-                                    errorWidget: (context, url, error) {
-                                      return const Icon(Icons.error);
-                                    },
+                                    cachedHeight: 219,
+                                    cachedWidth: 390,
                                   ),
                                 ),
                                 const SizedBox(

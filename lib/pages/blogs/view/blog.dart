@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ieducation/colors.dart';
@@ -6,6 +5,7 @@ import 'package:ieducation/common-widget/common-header.dart';
 import 'package:ieducation/common-widget/left-aligin-title.dart';
 import 'package:ieducation/pages/blogs/controller/blog_controller.dart';
 import 'package:ieducation/pages/blogs/model/blog_category_model.dart';
+import 'package:ieducation/utils/cached_network_image.dart';
 
 class BlogPage extends StatefulWidget {
   const BlogPage({super.key});
@@ -223,15 +223,14 @@ class _BlogPageState extends State<BlogPage> {
                         children: [
                           SizedBox(
                             width: imageWidth,
-                            child: CachedNetworkImage(
+                            child: AppCachedNetworkImage(
                               imageUrl: controller.blogList
                                   .elementAt(index)
                                   .photo
                                   .toString(),
                               fit: BoxFit.cover,
-                              errorWidget: (context, url, error) {
-                                return const Icon(Icons.error);
-                              },
+                              cachedHeight: 147,
+                              cachedWidth: 262,
                             ),
                           ),
                           const SizedBox(

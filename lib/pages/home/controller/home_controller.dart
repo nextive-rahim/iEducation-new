@@ -3,9 +3,9 @@ import 'package:ieducation/api-controller/api.dart';
 import 'package:ieducation/authentication/authentication_controller.dart';
 import 'package:ieducation/authentication/authentication_state.dart';
 import 'package:ieducation/pages/auth/model/user_model.dart';
-import 'package:ieducation/pages/auth/view/login_page.dart';
 import 'package:ieducation/pages/course/controller/course_controller.dart';
 import 'package:ieducation/pages/package/controller/package_controller.dart';
+import 'package:ieducation/routes.dart';
 
 class HomeController extends GetxController {
   late AuthenticationController authenticationController;
@@ -69,13 +69,13 @@ class HomeController extends GetxController {
         'Unauthenticated',
         'Account is logged in another device',
       );
-      //signOut();
+      signOut();
     }
   }
 
   void signOut() async {
     authenticationController.signOut();
-    Get.offAll(() =>  LoginPage());
+    Get.offNamed(RoutesPath.login);
   }
 
   Future<void> onRefresh() async {

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ieducation/authentication/authentication_controller.dart';
 import 'package:ieducation/authentication/authentication_service.dart';
 import 'package:ieducation/authentication/authentication_state.dart';
+import 'package:ieducation/pages/home/controller/home_controller.dart';
 import 'package:ieducation/routes.dart';
 
 class SplashPage extends StatefulWidget {
@@ -15,6 +16,7 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   final AuthenticationController controller = Get.put(AuthenticationController(
       Get.put(UserAuthenticationService(), permanent: true)));
+  final courseController = Get.put(HomeController());
   @override
   void initState() {
     super.initState();

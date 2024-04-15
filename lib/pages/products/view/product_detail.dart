@@ -8,6 +8,7 @@ import 'package:ieducation/common-widget/common-header.dart';
 import 'package:ieducation/common-widget/left-aligin-title.dart';
 import 'package:ieducation/pages/products/controller/product_controller.dart';
 import 'package:ieducation/routes.dart';
+import 'package:ieducation/utils/cached_network_image.dart';
 
 import '../model/delivery_option_model.dart';
 
@@ -311,12 +312,11 @@ class _ProductDetailState extends State<ProductDetail> {
                           width: 58,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(50),
-                            child: CachedNetworkImage(
+                            child: AppCachedNetworkImage(
                               imageUrl: imageUrl,
                               fit: BoxFit.cover,
-                              errorWidget: (context, url, error) {
-                                return const Icon(Icons.error);
-                              },
+                              cachedHeight: 152,
+                              cachedWidth: 152,
                             ),
                           ),
                         ),

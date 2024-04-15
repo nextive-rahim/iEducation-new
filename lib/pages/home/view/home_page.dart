@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -11,8 +10,8 @@ import 'package:ieducation/pages/drawer/drawer.dart';
 import 'package:ieducation/pages/home/controller/home_controller.dart';
 import 'package:ieducation/pages/settings/controller/settings_controller.dart';
 import 'package:ieducation/routes.dart';
+import 'package:ieducation/utils/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -124,6 +123,8 @@ class _HomePageState extends State<HomePage> {
                 child: Image.asset(
                   'assets/images/logo.png',
                   scale: 1,
+                  cacheHeight: 131,
+                  cacheWidth: 310,
                 ),
               ),
             ),
@@ -250,6 +251,8 @@ class _HomePageState extends State<HomePage> {
                   child: Image.asset(
                     icon,
                     scale: 1,
+                    cacheHeight: 131,
+                    cacheWidth: 131,
                   ),
                 ),
               ),
@@ -300,12 +303,15 @@ class _HomePageState extends State<HomePage> {
                   if (isBook) {
                     Get.toNamed(RoutesPath.productPage);
                   } else {
-                    Get.toNamed(RoutesPath.courseAndCategoryPage, arguments: [
-                      courseController.courseCategories
-                          .elementAt(index)
-                          .slug
-                          .toString()
-                    ]);
+                    Get.toNamed(
+                      RoutesPath.courseAndCategoryPage,
+                      arguments: [
+                        courseController.courseCategories
+                            .elementAt(index)
+                            .slug
+                            .toString()
+                      ],
+                    );
                   }
                 },
                 child: Container(
@@ -323,15 +329,16 @@ class _HomePageState extends State<HomePage> {
                         ? Image.asset(
                             'assets/images/bookHouse.png',
                             scale: 1,
+                            cacheHeight: 316,
+                            cacheWidth: 474,
                           )
-                        : CachedNetworkImage(
+                        : AppCachedNetworkImage(
                             imageUrl: courseController.courseCategories
                                 .elementAt(index)
                                 .photo
                                 .toString(),
-                            errorWidget: (context, url, error) {
-                              return const Icon(Icons.error);
-                            },
+                            cachedHeight: 221,
+                            cachedWidth: 390,
                           ),
                   ),
                 ),
@@ -433,15 +440,14 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         SizedBox(
                           width: imageWidth,
-                          child: CachedNetworkImage(
+                          child: AppCachedNetworkImage(
                             imageUrl: courseController.freeCourseList
                                 .elementAt(index)
                                 .photo
                                 .toString(),
                             fit: BoxFit.cover,
-                            errorWidget: (context, url, error) {
-                              return const Icon(Icons.error);
-                            },
+                            cachedHeight: 219,
+                            cachedWidth: 390,
                           ),
                         ),
                         const SizedBox(

@@ -5,13 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
 class AppCachedNetworkImage extends StatefulWidget {
-  const AppCachedNetworkImage(
-      {super.key,
-      required this.imageUrl,
-      this.cachedWidth,
-      this.cachedHeight,
-      this.fit,
-      this.width});
+  const AppCachedNetworkImage({
+    super.key,
+    this.imageUrl,
+    this.cachedWidth,
+    this.cachedHeight,
+    this.fit,
+    this.width,
+  });
   final String? imageUrl;
   final int? cachedWidth;
   final int? cachedHeight;
@@ -40,12 +41,13 @@ class _AppCachedNetworkImage extends State<AppCachedNetworkImage> {
   }
 
   Future<File> _downloadImage(String? url) async {
+    final String imageLink = (url == 'null' || url == null)
+        ? 'https://static.vecteezy.com/system/resources/previews/005/337/799/non_2x/icon-image-not-found-free-vector.jpg'
+        : url;
+    print('...........................$imageLink');
     final dio = Dio();
 
     try {
-      final String imageLink = url ??
-          'https://static.vecteezy.com/system/resources/previews/005/337/799/non_2x/icon-image-not-found-free-vector.jpg';
-
       // Define cache directory
       Directory dir = await getApplicationDocumentsDirectory();
       String fileName = imageLink.split('/').last;

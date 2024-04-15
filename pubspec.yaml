@@ -42,7 +42,6 @@ dependencies:
       url: https://github.com/peterweb2005/youtube_player_flutter.git
       ref: fullscreen-landscape
       path: packages/youtube_player_flutter
-  cached_network_image: ^3.3.0
   logger: ^2.0.2+1
   flutter_countdown_timer: ^4.1.0
   image_picker: ^1.0.5

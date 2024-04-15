@@ -5,6 +5,7 @@ import 'package:ieducation/colors.dart';
 import 'package:ieducation/common-widget/common-header.dart';
 import 'package:ieducation/pages/blogs/controller/blog_controller.dart';
 import 'package:ieducation/pages/exam/controller/exam_controller.dart';
+import 'package:ieducation/utils/cached_network_image.dart';
 
 import '../../../common-widget/show_video.dart';
 
@@ -89,9 +90,11 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
                                 child: photoUrl != 'null'
                                     ? ClipRRect(
                                         borderRadius: BorderRadius.circular(20),
-                                        child: Image.network(
-                                          photoUrl,
+                                        child: AppCachedNetworkImage(
+                                          imageUrl: photoUrl,
                                           fit: BoxFit.cover,
+                                          cachedWidth: 975,
+                                          cachedHeight: 525,
                                         ),
                                       )
                                     : const Icon(
@@ -172,8 +175,7 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
                           ),
                           width: responsiveWidth,
                           child: HtmlWidget(
-                      description,
-                           
+                            description,
                           ),
                         ),
                       ],
