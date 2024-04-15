@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ieducation/colors.dart';
 import 'package:ieducation/pages/auth/controller/auth_controller.dart';
-import 'package:ieducation/pages/auth/view/sign_up.dart';
 import 'package:ieducation/pages/course/widgets/CommonButton.dart';
 import 'package:ieducation/routes.dart';
 import 'package:ieducation/utils/progress_dialog.dart';
@@ -10,7 +9,7 @@ import 'package:ieducation/utils/progress_dialog.dart';
 class LoginPage extends StatelessWidget {
   final controller = Get.put(AuthController());
 
-   LoginPage({super.key});
+  LoginPage({super.key});
   @override
   Widget build(BuildContext context) {
     double responsiveWidth = MediaQuery.of(context).size.width - 40;
@@ -263,7 +262,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Get.offAll(() =>  SignUpPage());
+                      Get.toNamed(RoutesPath.signup);
                     },
                     child: const Text(
                       'Sign Up',

@@ -1,15 +1,19 @@
 import 'package:get/get.dart';
 import 'package:ieducation/common-widget/ImagePickerWrapper.dart';
+import 'package:ieducation/common-widget/splash_page.dart';
 import 'package:ieducation/pages/about-us/view/about_us.dart';
 import 'package:ieducation/pages/about-us/view/contact_us.dart';
 import 'package:ieducation/pages/address/view/adress_list_page.dart';
 import 'package:ieducation/pages/address/view/create_address_page.dart';
+import 'package:ieducation/pages/auth/binding/auth_binding.dart';
 import 'package:ieducation/pages/auth/view/confirm_phone_number.dart';
 import 'package:ieducation/pages/auth/view/create_new_password.dart';
 import 'package:ieducation/pages/auth/view/forget_password.dart';
 import 'package:ieducation/pages/auth/view/login_page.dart';
+import 'package:ieducation/pages/auth/view/sign_up.dart';
 import 'package:ieducation/pages/blogs/view/blog.dart';
 import 'package:ieducation/pages/blogs/view/blog_detail.dart';
+import 'package:ieducation/pages/bottom-navigation/view/bottom_navigation.dart';
 import 'package:ieducation/pages/contratulations/contratulations.dart';
 import 'package:ieducation/pages/course/view/course-and-category/course_and_category.dart';
 import 'package:ieducation/pages/course/view/course-content/view/course_content_detail_page.dart';
@@ -45,8 +49,24 @@ import 'package:ieducation/routes.dart';
 class Routes {
   static final List<GetPage> routes = [
     GetPage(
+      name: RoutesPath.initial,
+      page: () => const SplashPage(),
+    ),
+    GetPage(
+      name: RoutesPath.splash,
+      page: () => const SplashPage(),
+    ),
+    GetPage(
+      name: RoutesPath.signup,
+      page: () => SignUpPage(),
+    ),
+    GetPage(
       name: RoutesPath.courseDetail,
       page: () => const CourseDetail(),
+    ),
+    GetPage(
+      name: RoutesPath.bottomNavPage,
+      page: () => const BottomNavigation(),
     ),
     GetPage(
       name: RoutesPath.freeCoursePage,
@@ -58,7 +78,8 @@ class Routes {
     ),
     GetPage(
       name: RoutesPath.login,
-      page: () =>  LoginPage(),
+      page: () => LoginPage(),
+      binding: AuthenticationBinding(),
     ),
     GetPage(
       name: RoutesPath.videoSectionContent,
@@ -150,7 +171,7 @@ class Routes {
     ),
     GetPage(
       name: RoutesPath.forgetPassword,
-      page: () =>  ForgetPassword(),
+      page: () => ForgetPassword(),
     ),
     GetPage(
       name: RoutesPath.confirmPhoneNumber,
@@ -158,7 +179,7 @@ class Routes {
     ),
     GetPage(
       name: RoutesPath.createNewPassword,
-      page: () =>  CreateNewPassword(),
+      page: () => CreateNewPassword(),
     ),
     GetPage(
       name: RoutesPath.noticePage,

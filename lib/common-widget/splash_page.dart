@@ -1,7 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ieducation/authentication/authentication_controller.dart';
+import 'package:ieducation/authentication/authentication_service.dart';
+import 'package:ieducation/authentication/authentication_state.dart';
+import 'package:ieducation/routes.dart';
 
-class SplashPage extends StatelessWidget {
+class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
+
+  @override
+  State<SplashPage> createState() => _SplashPageState();
+}
+
+class _SplashPageState extends State<SplashPage> {
+  final AuthenticationController controller = Get.put(AuthenticationController(
+      Get.put(UserAuthenticationService(), permanent: true)));
+  @override
+  void initState() {
+    super.initState();
+
+    _navigateToNextScreen();
+  }
+
+  Future<void> _navigateToNextScreen() async {
+    Future.delayed(const Duration(seconds: 2)).then(
+      (value) {
+        if (controller.state is UnAuthenticated) {
+          Get.offNamed(RoutesPath.login);
+        }
+        if (controller.state is Authenticated) {
+          Get.offNamed(RoutesPath
+              .bottomNavPage); //user: (controller.state as Authenticated).user,
+        }
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

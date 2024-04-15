@@ -1,9 +1,13 @@
 class RoutesPath {
+   static const String initial = '/';
   static const courseDetail = '/courseDetail';
   static const forgetPassword = '/forgetPassword';
+  static const signup = '/signup';
   static const freeCoursePage = '/freeCoursePage';
   static const individualCoursePage = '/individualCoursePage';
   static const login = '/login';
+  static const bottomNavPage = '/bottomNavPage';
+  static const splash = '/splash';
   static const videoSectionContent = '/videoSectionContent';
   static const videoPlayPage = '/videoPlayPage';
   static const courseCheckoutPage = '/courseCheckoutPage';

@@ -51,12 +51,9 @@ class AuthController extends GetxController {
   }
 
   Future<void> collectInfo() async {
-  
     // await getApnToken();
 /*    await getDeviceInfo();*/
   }
-
- 
 
 /*  Future<void> getDeviceInfo() async {
     if (Platform.isAndroid) {
@@ -83,7 +80,7 @@ class AuthController extends GetxController {
       passwordController.clear();
       Get.snackbar('Success', 'Register Successfully',
           snackPosition: SnackPosition.BOTTOM);
-      Get.offAll(() =>  LoginPage());
+      Get.offAll(() => LoginPage());
     } else {
       handleErrorMessage(context, result);
     }
@@ -111,7 +108,7 @@ class AuthController extends GetxController {
       passwordController.clear();
       Get.snackbar('Success', 'Password reset Successfully',
           snackPosition: SnackPosition.BOTTOM);
-      Get.offAll(() =>  LoginPage());
+      Get.offAll(() => LoginPage());
     } else {
       handleErrorMessage(context, result);
     }
@@ -131,7 +128,7 @@ class AuthController extends GetxController {
 
   void signOut() async {
     authenticationController.signOut();
-    Get.offAll(() =>  LoginPage());
+    Get.offAll(() => LoginPage());
     Get.snackbar(
       'Success',
       'Logout Successfully',
