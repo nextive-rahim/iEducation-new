@@ -29,6 +29,8 @@ class LoginPage extends StatelessWidget {
                   child: Image.asset(
                     'assets/images/logo.png',
                     scale: 1,
+                    cacheHeight: 157,
+                    cacheWidth: 372,
                   ),
                 ),
               ),

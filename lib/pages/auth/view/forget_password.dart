@@ -8,7 +8,7 @@ import 'package:ieducation/utils/progress_dialog.dart';
 class ForgetPassword extends StatelessWidget {
   final controller = Get.put(AuthController());
 
-   ForgetPassword({super.key});
+  ForgetPassword({super.key});
   @override
   Widget build(BuildContext context) {
     double responsiveWidth = MediaQuery.of(context).size.width - 40;
@@ -28,6 +28,8 @@ class ForgetPassword extends StatelessWidget {
                   child: Image.asset(
                     'assets/images/logo.png',
                     scale: 1,
+                    cacheHeight: 157,
+                    cacheWidth: 372,
                   ),
                 ),
               ),

@@ -3,10 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ieducation/authentication/authentication_controller.dart';
 import 'package:ieducation/authentication/authentication_service.dart';
-import 'package:ieducation/authentication/authentication_state.dart';
-import 'package:ieducation/common-widget/splash_page.dart';
 import 'package:ieducation/pages/package/controller/package_controller.dart';
-import 'package:ieducation/routes.dart';
 import 'package:ieducation/routes_path.dart';
 
 void main() async {
@@ -54,7 +51,7 @@ class _MainState extends State<Main> {
 
   @override
   Widget build(BuildContext context) {
-   // debugInvertOversizedImages = true;
+    debugInvertOversizedImages = true;
     return GetMaterialApp(
       navigatorObservers: [routeObserver],
       title: 'I Education',

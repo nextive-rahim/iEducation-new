@@ -172,6 +172,7 @@ class Routes {
     GetPage(
       name: RoutesPath.forgetPassword,
       page: () => ForgetPassword(),
+       binding: AuthenticationBinding(),
     ),
     GetPage(
       name: RoutesPath.confirmPhoneNumber,

@@ -9,7 +9,7 @@ import 'package:ieducation/utils/progress_dialog.dart';
 class SignUpPage extends StatelessWidget {
   final controller = Get.put(AuthController());
 
-   SignUpPage({super.key});
+  SignUpPage({super.key});
   @override
   Widget build(BuildContext context) {
     double responsiveWidth = MediaQuery.of(context).size.width - 40;
@@ -29,6 +29,8 @@ class SignUpPage extends StatelessWidget {
                   child: Image.asset(
                     'assets/images/logo.png',
                     scale: 1,
+                    cacheHeight: 157,
+                    cacheWidth: 372,
                   ),
                 ),
               ),
@@ -424,7 +426,7 @@ class SignUpPage extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Get.offAll(() =>  LoginPage());
+                      Get.offAll(() => LoginPage());
                     },
                     child: const Text(
                       'Login',
