@@ -66,7 +66,6 @@ class _SelectedContentPageState extends State<SelectedContentPage> {
         ],
       );
     } else if (controller.selectedCourseContent!.type == 'pdf') {
-      double responsiveHeight = MediaQuery.of(context).size.height;
       fileName = controller.selectedCourseContent!.pdf!.link.toString();
 
       return const SizedBox();

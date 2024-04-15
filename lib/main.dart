@@ -62,6 +62,7 @@ class _MainState extends State<Main> {
 
   @override
   Widget build(BuildContext context) {
+        debugInvertOversizedImages = true;
     return GetMaterialApp(
       navigatorObservers: [routeObserver],
       title: 'I Education',
@@ -78,4 +79,4 @@ class _MainState extends State<Main> {
       getPages: Routes.routes,
     );
   }
-}
+} 

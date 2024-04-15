@@ -27,8 +27,6 @@ class _AddressPageState extends State<AddressPage> {
 
   @override
   Widget build(BuildContext context) {
-    double responsiveWidth = MediaQuery.of(context).size.width / 2;
-    double containerWidth = MediaQuery.of(context).size.width - 40;
     return Scaffold(
       backgroundColor: CustomColors.pageBackground,
       body: Padding(

@@ -18,6 +18,7 @@ class _NoteViewPageState extends State<NoteViewPage> {
 
   @override
   void initState() {
+    super.initState();
     // TODO: implement initState
     title = Get.arguments[0];
     body = Get.arguments[1];
@@ -52,8 +53,7 @@ class _NoteViewPageState extends State<NoteViewPage> {
         child: Column(
           children: [
             HtmlWidget(
-         body,
-             
+              body,
             ),
           ],
         ),

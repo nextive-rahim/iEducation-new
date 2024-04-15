@@ -19,7 +19,6 @@ class _CreateAddressState extends State<CreateAddress> {
   @override
   Widget build(BuildContext context) {
     double responsiveWidth = MediaQuery.of(context).size.width - 40;
-    double responsiveHeight = MediaQuery.of(context).size.height - 400;
     return Scaffold(
       backgroundColor: CustomColors.pageBackground,
       body: Padding(

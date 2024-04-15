@@ -29,8 +29,6 @@ class _ProductCheckoutState extends State<ProductCheckout> {
 
   @override
   Widget build(BuildContext context) {
-    double responsiveWidth = MediaQuery.of(context).size.width - 40;
-    double responsiveText = MediaQuery.of(context).size.width - 60;
     double responsiveHeight = MediaQuery.of(context).size.height - 230;
 
     return Scaffold(
@@ -91,10 +89,7 @@ class _ProductCheckoutState extends State<ProductCheckout> {
                           .elementAt(0)
                           .photo
                           .toString();
-                      String description = controller.productDetailData
-                          .elementAt(0)
-                          .description
-                          .toString();
+                    
 
                       String title = controller.productDetailData
                           .elementAt(0)
@@ -111,8 +106,7 @@ class _ProductCheckoutState extends State<ProductCheckout> {
                       double responsiveWidth =
                           MediaQuery.of(context).size.width - 40;
                       double imageWidth = responsiveWidth / 2;
-                      double responsiveHeight =
-                          MediaQuery.of(context).size.height - 220;
+                   
                       return SizedBox(
                         width: imageWidth,
                         child: Column(
@@ -278,7 +272,7 @@ class _ProductCheckoutState extends State<ProductCheckout> {
     return Text(
       title,
       style: const TextStyle(
-          fontFamily: 'HindSiliguri',
+          fontFamily: 'Poppins',
           fontWeight: FontWeight.w600,
           fontSize: 20,
           color: Colors.green),

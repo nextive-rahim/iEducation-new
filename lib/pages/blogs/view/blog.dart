@@ -150,7 +150,6 @@ class _BlogPageState extends State<BlogPage> {
 
   Widget getBlogList() {
     double responsiveWidth = MediaQuery.of(context).size.width - 40;
-    double textResponsiveWidth = MediaQuery.of(context).size.width - 60;
     double responsiveHeight = MediaQuery.of(context).size.height - 265;
     return SizedBox(
       height: responsiveHeight,

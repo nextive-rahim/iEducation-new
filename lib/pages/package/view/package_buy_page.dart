@@ -437,7 +437,7 @@ class _PackageBuyPageState extends State<PackageBuyPage> {
             Text(
               'এই কোর্সটি থেকে যা শিখবেন:',
               style: TextStyle(
-                  fontFamily: 'HindSiliguri',
+                  fontFamily: 'Poppins',
                   fontWeight: FontWeight.bold,
                   fontSize: 16),
             ),
@@ -455,7 +455,6 @@ class _PackageBuyPageState extends State<PackageBuyPage> {
           padding: const EdgeInsets.all(10),
           child: HtmlWidget(
             description,
-           
           ),
         )
       ],

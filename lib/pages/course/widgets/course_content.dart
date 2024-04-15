@@ -86,7 +86,7 @@ class _CourseContentState extends State<CourseContent> {
                   child: Text(
                     widget.content.title.toString(),
                     style: const TextStyle(
-                        fontFamily: 'HindSiliguri',
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w400,
                         fontSize: 16),
                   ),

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ieducation/api-controller/api.dart';
-
 import 'package:ieducation/pages/blogs/model/blog_model.dart';
 import 'package:ieducation/pages/notices/model/notice_model.dart';
-import 'package:intl/intl.dart';
 import 'package:ieducation/utils/handleErrorMessage.dart';
+import 'package:intl/intl.dart';
 
 class NoticeController extends GetxController {
   var noticeIsRefreshing = false.obs;
@@ -38,11 +37,6 @@ class NoticeController extends GetxController {
     }
     DateTime end = DateTime.parse(s.substring(0, s.length - 1))
         .add(const Duration(hours: 6));
-    final date2 = DateTime.now();
-    final difference = end.difference(date2).inSeconds;
-    DateTime tempDate = DateFormat("hh:mm")
-        .parse("${end.hour}:${end.minute}");
-    var dateFormat = DateFormat("h:mm a"); // you can change the format here
     String Final = '${end.day} ${month(end.month.toString())} ${end.year}';
     return Final;
   }
@@ -53,10 +47,7 @@ class NoticeController extends GetxController {
     }
     DateTime end = DateTime.parse(s.substring(0, s.length - 1))
         .add(const Duration(hours: 6));
-    final date2 = DateTime.now();
-    final difference = end.difference(date2).inSeconds;
-    DateTime tempDate = DateFormat("hh:mm")
-        .parse("${end.hour}:${end.minute}");
+    DateTime tempDate = DateFormat("hh:mm").parse("${end.hour}:${end.minute}");
     var dateFormat = DateFormat("h:mm a"); // you can change the format here
     String Final = dateFormat.format(tempDate).toString();
     return Final;

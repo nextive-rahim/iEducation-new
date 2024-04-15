@@ -8,6 +8,7 @@ import 'package:ieducation/common-widget/common-header.dart';
 import 'package:ieducation/common-widget/left-aligin-title.dart';
 import 'package:ieducation/pages/products/controller/product_controller.dart';
 import 'package:ieducation/routes.dart';
+
 import '../model/delivery_option_model.dart';
 
 class ProductDetail extends StatefulWidget {
@@ -210,8 +211,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           ),
                           width: responsiveWidth,
                           child: HtmlWidget(
-                          description,
-                            
+                            description,
                           ),
                         ),
                         const SizedBox(
@@ -259,7 +259,7 @@ class _ProductDetailState extends State<ProductDetail> {
               Text(
                 'লেখক',
                 style: TextStyle(
-                  fontFamily: 'HindSiliguri',
+                  fontFamily: 'Poppins',
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),
@@ -344,8 +344,7 @@ class _ProductDetailState extends State<ProductDetail> {
                               ),
                               width: responsiveTextWidth,
                               child: HtmlWidget(
-                           description,
-                              
+                                description,
                               ),
                             ),
                           ],

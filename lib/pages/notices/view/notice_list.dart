@@ -27,7 +27,6 @@ class _NoticeListPageState extends State<NoticeListPage> {
 
   @override
   Widget build(BuildContext context) {
-    double responsiveWidth = MediaQuery.of(context).size.width / 2;
     return Scaffold(
       backgroundColor: CustomColors.pageBackground,
       body: Padding(
@@ -94,8 +93,7 @@ class _NoticeListPageState extends State<NoticeListPage> {
             itemBuilder: (context, index) {
               String createdAt =
                   controller.noticeList.elementAt(index).createdAt.toString();
-              String description =
-                  controller.noticeList.elementAt(index).body.toString();
+
               return Column(
                 children: [
                   GestureDetector(

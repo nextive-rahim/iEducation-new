@@ -20,7 +20,7 @@ class _VideoPlaySectionBlogState extends State<VideoPlaySectionBlog> {
   late String token;
   String videoThumb = '';
   late YoutubePlayerController tubeController;
-  late YoutubeMetaData _videoMetaData;
+  late YoutubeMetaData videoMetaData;
 
   @override
   void initState() {
@@ -43,7 +43,7 @@ class _VideoPlaySectionBlogState extends State<VideoPlaySectionBlog> {
           useHybridComposition: false),
     )..addListener(listener);
 
-    _videoMetaData = const YoutubeMetaData();
+    videoMetaData = const YoutubeMetaData();
 
     super.initState();
   }
@@ -51,7 +51,7 @@ class _VideoPlaySectionBlogState extends State<VideoPlaySectionBlog> {
   void listener() {
     if (_isPlayerReady && mounted && !tubeController.value.isFullScreen) {
       setState(() {
-        _videoMetaData = tubeController.metadata;
+        videoMetaData = tubeController.metadata;
       });
     }
   }

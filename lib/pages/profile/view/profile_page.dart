@@ -28,9 +28,9 @@ class _ProfilePageState extends State<ProfilePage> {
   String? selectedGender;
   String? selectedImage;
 
-  dynamic _pickImageError;
+  dynamic pickImageError;
 
-  final ImagePicker _picker = ImagePicker();
+  final ImagePicker picker = ImagePicker();
 
   XFile? _image;
 

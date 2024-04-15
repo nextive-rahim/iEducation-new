@@ -25,7 +25,6 @@ class _OrderListPageState extends State<OrderListPage> {
 
   @override
   Widget build(BuildContext context) {
-    double responsiveWidth = MediaQuery.of(context).size.width / 2;
     return Scaffold(
       backgroundColor: CustomColors.pageBackground,
       body: Padding(

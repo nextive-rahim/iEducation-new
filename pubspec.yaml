@@ -32,7 +32,6 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
   get: ^4.6.6
   dio: ^5.4.0
   url_launcher: ^6.2.2
@@ -49,11 +48,13 @@ dependencies:
   image_picker: ^1.0.5
   pod_player: ^0.2.1
   permission_handler: ^11.1.0
-  syncfusion_flutter_pdfviewer: ^24.1.41
   package_info_plus: ^5.0.1
   flutter_sslcommerz: ^2.2.2-nullsafety.0
   flutter_widget_from_html: ^0.14.9
-  file_picker: ^6.1.1
+  file_picker: ^8.0.0+1
+  intl: ^0.19.0
+  flutter_pdfview: ^1.3.2
+  path_provider: ^2.1.3
   
 dev_dependencies:
   flutter_test:
@@ -90,9 +91,7 @@ flutter:
     - family: Poppins
       fonts:
         - asset: assets/fonts/Poppins-Regular.ttf
-    - family: HindSiliguri
-      fonts:
-        - asset: assets/fonts/HindSiliguri-Regular.ttf
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

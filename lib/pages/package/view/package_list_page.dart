@@ -17,7 +17,6 @@ class _PackageListPageState extends State<PackageListPage> {
 
   @override
   Widget build(BuildContext context) {
-    double responsiveWidth = MediaQuery.of(context).size.width / 2;
     return Scaffold(
       backgroundColor: CustomColors.pageBackground,
       body: Padding(

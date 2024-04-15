@@ -191,7 +191,7 @@ class _CourseCheckoutPageState extends State<CourseCheckoutPage> {
     return Text(
       title,
       style: const TextStyle(
-          fontFamily: 'HindSiliguri',
+          fontFamily: 'Poppins',
           fontWeight: FontWeight.w600,
           fontSize: 20,
           color: Colors.green),

@@ -13,7 +13,6 @@ class ProductPage extends GetView<ProductController> {
 
   @override
   Widget build(BuildContext context) {
-    double responsiveWidth = MediaQuery.of(context).size.width / 2;
     return Scaffold(
       backgroundColor: CustomColors.pageBackground,
       body: Padding(

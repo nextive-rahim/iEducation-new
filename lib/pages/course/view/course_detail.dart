@@ -7,10 +7,10 @@ import 'package:ieducation/colors.dart';
 import 'package:ieducation/common-widget/common-header.dart';
 import 'package:ieducation/common-widget/left-aligin-title.dart';
 import 'package:ieducation/pages/course/controller/course_controller.dart';
+import 'package:ieducation/pages/course/view/course-detail/course-detail-section/course-detail-section.dart';
 import 'package:ieducation/pages/course/widgets/CommonButton.dart';
 import 'package:ieducation/pages/course/widgets/course_section.dart';
 import 'package:ieducation/pages/course/widgets/course_title_section.dart';
-import 'package:ieducation/pages/course/view/course-detail/course-detail-section/course-detail-section.dart';
 import 'package:ieducation/pages/orders/controller/order_controller.dart';
 import 'package:ieducation/utils/progress_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -90,7 +90,6 @@ class _CourseDetailState extends State<CourseDetail> {
   }
 
   Widget getVideoSection() {
-    String url = controller.selectedFreeCourse!.video.toString();
     String photo = controller.selectedFreeCourse!.photo.toString();
     double responsiveWidth = MediaQuery.of(context).size.width - 40;
     return Container(
@@ -193,16 +192,12 @@ class _CourseDetailState extends State<CourseDetail> {
         Text(
           titleString,
           style: const TextStyle(
-              fontFamily: 'HindSiliguri',
-              fontWeight: FontWeight.w400,
-              fontSize: 12),
+              fontFamily: 'Poppins', fontWeight: FontWeight.w400, fontSize: 12),
         ),
         Text(
           value,
           style: const TextStyle(
-              fontFamily: 'HindSiliguri',
-              fontWeight: FontWeight.w400,
-              fontSize: 12),
+              fontFamily: 'Poppins', fontWeight: FontWeight.w400, fontSize: 12),
         ),
       ],
     );
@@ -250,7 +245,7 @@ class _CourseDetailState extends State<CourseDetail> {
               Text(
                 'ইনস্ট্রাক্টর',
                 style: TextStyle(
-                  fontFamily: 'HindSiliguri',
+                  fontFamily: 'Poppins',
                   fontWeight: FontWeight.w500,
                   fontSize: 16,
                 ),
@@ -366,7 +361,7 @@ class _CourseDetailState extends State<CourseDetail> {
             Text(
               'কোর্স ডিটেইলস:',
               style: TextStyle(
-                  fontFamily: 'HindSiliguri',
+                  fontFamily: 'Poppins',
                   fontWeight: FontWeight.bold,
                   fontSize: 16),
             ),
@@ -384,7 +379,6 @@ class _CourseDetailState extends State<CourseDetail> {
           padding: const EdgeInsets.all(10),
           child: HtmlWidget(
             description,
-          
           ),
         )
       ],
@@ -402,7 +396,7 @@ class _CourseDetailState extends State<CourseDetail> {
             Text(
               'এই কোর্সটি থেকে যা শিখবেন:',
               style: TextStyle(
-                  fontFamily: 'HindSiliguri',
+                  fontFamily: 'Poppins',
                   fontWeight: FontWeight.bold,
                   fontSize: 16),
             ),
@@ -426,7 +420,7 @@ class _CourseDetailState extends State<CourseDetail> {
                   const Text(
                     'Contents',
                     style: TextStyle(
-                        fontFamily: 'HindSiliguri',
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.bold,
                         fontSize: 16),
                   ),
@@ -478,7 +472,6 @@ class _CourseDetailState extends State<CourseDetail> {
 
   Widget buyCourseSection() {
     double multipleItem = (MediaQuery.of(context).size.width - 130) / 2;
-    double singleItem = (MediaQuery.of(context).size.width - 40);
     return Column(
       children: [
         Row(

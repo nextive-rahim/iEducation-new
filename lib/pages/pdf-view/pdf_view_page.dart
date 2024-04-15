@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:ieducation/utils/common_pdf_view.dart';
 
 class PdfViewer extends StatefulWidget {
   const PdfViewer({super.key});
@@ -10,7 +10,6 @@ class PdfViewer extends StatefulWidget {
 }
 
 class _PdfViewerState extends State<PdfViewer> {
-  PdfViewerController? _pdfViewerController;
   String fileName = '';
   String title = '';
   @override
@@ -19,7 +18,6 @@ class _PdfViewerState extends State<PdfViewer> {
     if (Get.arguments != null) {
       fileName = Get.arguments[0];
     }
-    _pdfViewerController = PdfViewerController();
 
     super.initState();
   }
@@ -29,10 +27,7 @@ class _PdfViewerState extends State<PdfViewer> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 30.0),
-        child: SfPdfViewer.network(
-          fileName,
-          controller: _pdfViewerController,
-        ),
+        child: CommonPDFViewer(pdfLink: fileName),
       ),
     );
   }

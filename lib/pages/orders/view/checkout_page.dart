@@ -194,33 +194,9 @@ class _CheckOutPageState extends State<CheckOutPage> {
   }
 
   Widget paymentDetailSection() {
-    String total = AppConstants.getValueOrZero(controller.selectedOrderDetail
-        .elementAt(0)
-        .sells!
-        .elementAt(0)
-        .sellable!
-        .price
-        .toString());
-
-    String discount = AppConstants.getValueOrZero(controller.selectedOrderDetail
-        .elementAt(0)
-        .sells!
-        .elementAt(0)
-        .sellable!
-        .discount
-        .toString());
-
     String grandTotal = AppConstants.getValueOrZero(
         controller.selectedOrderDetail.elementAt(0).grandTotal.toString());
 
-    String type = controller.selectedOrderDetail
-        .elementAt(0)
-        .sells!
-        .elementAt(0)
-        .type
-        .toString();
-
-    double responsiveWidth = MediaQuery.of(context).size.width - 40;
     return Column(
       children: [
         Row(
@@ -238,7 +214,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
     return Text(
       title,
       style: const TextStyle(
-          fontFamily: 'HindSiliguri',
+          fontFamily: 'Poppins',
           fontWeight: FontWeight.w600,
           fontSize: 20,
           color: Colors.green),

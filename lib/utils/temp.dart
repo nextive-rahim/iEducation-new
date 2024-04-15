@@ -1,9 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ieducation/colors.dart';
 import 'package:ieducation/pages/exam/controller/exam_controller.dart';
 import 'package:intl/intl.dart';
-import 'dart:async';
 
 class ExamDetailPage extends StatefulWidget {
   const ExamDetailPage({super.key});
@@ -161,8 +162,7 @@ class _ExamDetailPageState extends State<ExamDetailPage> {
                                     ? controller.selectedExamData!.exam!.result!
                                         .obtainedMark
                                         .toString()
-                                    : 'N/A out of ${controller.selectedExamData!.exam!
-                                            .result!.totalMark}'),
+                                    : 'N/A out of ${controller.selectedExamData!.exam!.result!.totalMark}'),
                               ),
                               const SizedBox(
                                 height: 5,
@@ -208,8 +208,7 @@ class _ExamDetailPageState extends State<ExamDetailPage> {
                     const SizedBox(
                       height: 5,
                     ),
-                    RowItem(
-                        'সময়',
+                    RowItem('সময়',
                         ('${controller.selectedExamData!.exam!.duration} মিনিট')),
                     const SizedBox(
                       height: 5,
@@ -438,8 +437,7 @@ class _ExamDetailPageState extends State<ExamDetailPage> {
     return Container(
       height: 40,
       decoration: const BoxDecoration(
-          border: Border(
-              bottom: BorderSide(color: Colors.black12, width: 1))),
+          border: Border(bottom: BorderSide(color: Colors.black12, width: 1))),
       child: Column(
         children: [
           Row(
@@ -482,12 +480,10 @@ class _ExamDetailPageState extends State<ExamDetailPage> {
     }
     DateTime end = DateTime.parse(s.substring(0, s.length - 1))
         .add(const Duration(hours: 6));
-    final date2 = DateTime.now();
-    final difference = end.difference(date2).inSeconds;
-    DateTime tempDate = DateFormat("hh:mm")
-        .parse("${end.hour}:${end.minute}");
+    DateTime tempDate = DateFormat("hh:mm").parse("${end.hour}:${end.minute}");
     var dateFormat = DateFormat("h:mm a"); // you can change the format here
-    String Final = '${end.day} ${month(end.month.toString())} ${end.year} - ${dateFormat.format(tempDate)}';
+    String Final =
+        '${end.day} ${month(end.month.toString())} ${end.year} - ${dateFormat.format(tempDate)}';
     return Final;
   }
 
