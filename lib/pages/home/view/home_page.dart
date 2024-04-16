@@ -56,24 +56,22 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double responsiveHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: CustomColors.pageBackground,
       drawer: const GetDrawer(),
+      appBar: getAppHeader(),
       key: scaffoldKey,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            getAppHeader(),
             const SizedBox(height: 5),
             Container(
-              height: responsiveHeight,
               padding: const EdgeInsets.only(
                 left: 15,
                 right: 15,
+                bottom: 10,
               ),
-              color: CustomColors.bodyBackground,
               child: RefreshIndicator(
                 onRefresh: controller.onRefresh,
                 child: SingleChildScrollView(
@@ -94,65 +92,66 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget getAppHeader() {
-    return Container(
-      color: CustomColors.pageBackground,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 40),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              flex: 2,
-              child: GestureDetector(
-                onTap: () => scaffoldKey.currentState!.openDrawer(),
-                child: SizedBox(
-                  height: 45,
-                  width: 45,
-                  child: Center(
-                    child: Image.asset(
-                      'assets/images/head_menu.png',
-                      scale: 1,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 6,
+  AppBar getAppHeader() {
+    return AppBar(
+      leadingWidth: 0,
+      automaticallyImplyLeading: false,
+      backgroundColor: CustomColors.pageBackground,
+      elevation: 0,
+      toolbarHeight: 65,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 2,
+            child: GestureDetector(
+              onTap: () => scaffoldKey.currentState!.openDrawer(),
               child: SizedBox(
-                height: 50,
-                width: 97,
+                height: 45,
+                width: 45,
                 child: Center(
                   child: Image.asset(
-                    'assets/images/logo.png',
+                    'assets/images/head_menu.png',
                     scale: 1,
-                    cacheHeight: 131,
-                    cacheWidth: 310,
                   ),
                 ),
               ),
             ),
-            Expanded(
-              flex: 2,
-              child: GestureDetector(
-                onTap: () {
-                  Get.toNamed(RoutesPath.noticePage);
-                },
-                child: SizedBox(
-                  height: 45,
-                  width: 45,
-                  child: Center(
-                    child: Image.asset(
-                      'assets/images/head_notification.png',
-                      scale: 1,
-                    ),
+          ),
+          Expanded(
+            flex: 6,
+            child: SizedBox(
+              height: 50,
+              width: 97,
+              child: Center(
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  scale: 1,
+                  cacheHeight: 131,
+                  cacheWidth: 310,
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: GestureDetector(
+              onTap: () {
+                Get.toNamed(RoutesPath.noticePage);
+              },
+              child: SizedBox(
+                height: 45,
+                width: 45,
+                child: Center(
+                  child: Image.asset(
+                    'assets/images/head_notification.png',
+                    scale: 1,
                   ),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -191,9 +190,6 @@ class _HomePageState extends State<HomePage> {
   Widget getFreeContents() {
     return Column(
       children: [
-        const SizedBox(
-          height: 20,
-        ),
         leftAlignTitle('Free contents'),
         const SizedBox(height: 10),
         Row(
@@ -406,7 +402,7 @@ class _HomePageState extends State<HomePage> {
 
           return ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
-            padding: const EdgeInsets.only(bottom: 190),
+            padding: EdgeInsets.zero,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
