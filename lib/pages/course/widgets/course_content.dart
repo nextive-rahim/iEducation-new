@@ -10,7 +10,11 @@ import 'package:url_launcher/url_launcher.dart';
 class CourseContent extends StatefulWidget {
   final Content content;
   final int index;
-  const CourseContent({super.key, required this.content, required this.index});
+  const CourseContent({
+    super.key,
+    required this.content,
+    required this.index,
+  });
 
   @override
   State<CourseContent> createState() => _CourseContentState();

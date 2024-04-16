@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ieducation/app.dart';
 import 'package:ieducation/colors.dart';
-import 'package:ieducation/common-widget/common-header.dart';
 import 'package:ieducation/common-widget/left-aligin-title.dart';
 import 'package:ieducation/pages/course/controller/course_controller.dart';
 import 'package:ieducation/routes.dart';
@@ -29,30 +28,25 @@ class _MyCoursePageState extends State<MyCoursePage> {
   @override
   Widget build(BuildContext context) {
     double responsiveWidth = MediaQuery.of(context).size.width - 40;
-    double responsiveHeight = MediaQuery.of(context).size.height - 180;
-    double imageWidth = (responsiveWidth / 10.0) * 4;
     double descriptionWidth = (responsiveWidth / 10.0) * 6;
     return Scaffold(
       backgroundColor: CustomColors.pageBackground,
-      body: Padding(
-        padding: const EdgeInsets.only(
-          left: 20,
-          right: 20,
-        ),
-        child: Column(
-          children: [
-            commonHeader('Courses', context),
-            const SizedBox(
-              height: 25,
-            ),
-            leftAlignTitle('My Courses'),
-            const SizedBox(
-              height: 15,
-            ),
-            SizedBox(
-              height: responsiveHeight,
-              width: responsiveWidth,
-              child: Obx(
+      appBar: AppBar(
+        title: const Text('My Courses'),
+        centerTitle: true,
+        backgroundColor: CustomColors.pageBackground,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 15,
+            right: 15,
+          ),
+          child: Column(
+            children: [
+              leftAlignTitle('My Courses'),
+              const SizedBox(height: 10),
+              Obx(
                 () {
                   if (controller.courseRefreshing.value) {
                     return const Center(
@@ -60,32 +54,30 @@ class _MyCoursePageState extends State<MyCoursePage> {
                     );
                   }
                   if (controller.myCourseList.isEmpty) {
-                    return SingleChildScrollView(
-                      child: Center(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          padding: const EdgeInsets.only(top: 20),
-                          width: 250,
-                          height: 120,
-                          child: const Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.search,
-                                size: 50,
+                    return Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        padding: const EdgeInsets.only(top: 20),
+                        width: 250,
+                        height: 120,
+                        child: const Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.search,
+                              size: 50,
+                            ),
+                            Text(
+                              'No course is found',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.bold,
                               ),
-                              Text(
-                                'No course is found',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     );
@@ -110,29 +102,27 @@ class _MyCoursePageState extends State<MyCoursePage> {
                         },
                         child: Card(
                           child: SizedBox(
-                            height: 100,
-                            width: descriptionWidth,
+                            height: 80,
                             child: Row(
                               children: [
                                 SizedBox(
-                                  width: imageWidth,
+                                  height: 80,
+                                  width: 120,
                                   child: AppCachedNetworkImage(
                                     imageUrl: controller
                                         .myCourseList[index].photo
                                         .toString(),
-                                    cachedHeight: 221,
-                                    cachedWidth: 390,
+                                    cachedHeight: 145,
+                                    cachedWidth: 256,
                                   ),
                                 ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
+                                const SizedBox(width: 10),
                                 Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const SizedBox(height: 9),
                                     SizedBox(
                                       width: descriptionWidth - 20.0,
-                                      height: 70,
                                       child: Text(
                                         controller.myCourseList[index].title
                                             .toString(),
@@ -144,7 +134,6 @@ class _MyCoursePageState extends State<MyCoursePage> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 18,
                                       width: descriptionWidth - 25.0,
                                       child: Row(
                                         mainAxisAlignment:
@@ -162,9 +151,7 @@ class _MyCoursePageState extends State<MyCoursePage> {
                                                   ),
                                                 ),
                                               ),
-                                              const SizedBox(
-                                                width: 9,
-                                              ),
+                                              const SizedBox(width: 9),
                                               Text(
                                                 controller.myCourseList[index]
                                                     .usersCount
@@ -182,7 +169,7 @@ class _MyCoursePageState extends State<MyCoursePage> {
                                           getPrice(index)
                                         ],
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ],
@@ -196,9 +183,9 @@ class _MyCoursePageState extends State<MyCoursePage> {
                     shrinkWrap: true,
                   );
                 },
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

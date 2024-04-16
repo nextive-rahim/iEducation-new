@@ -62,31 +62,23 @@ class _HomePageState extends State<HomePage> {
       appBar: getAppHeader(),
       key: scaffoldKey,
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 5),
-            Container(
-              padding: const EdgeInsets.only(
-                left: 15,
-                right: 15,
-                bottom: 10,
-              ),
-              child: RefreshIndicator(
-                onRefresh: controller.onRefresh,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      /* getBannerPart(),*/
-                      getFreeContents(),
-                      getCategories(),
-                      getFeaturedCourses(),
-                    ],
-                  ),
-                ),
-              ),
-            )
-          ],
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 15,
+            right: 15,
+            bottom: 10,
+          ),
+          child: RefreshIndicator(
+            onRefresh: controller.onRefresh,
+            child: Column(
+              children: [
+                /* getBannerPart(),*/
+                getFreeContents(),
+                getCategories(),
+                getFeaturedCourses(),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -204,9 +196,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget getFreeContentsItem(type) {
-    double itemWidth =
-        ((MediaQuery.of(context).size.width - 60.0) / 2).toPrecision(0);
-
     String icon = (type == "exam")
         ? 'assets/images/free_exam.png'
         : 'assets/images/free_course.png';
@@ -229,7 +218,6 @@ class _HomePageState extends State<HomePage> {
         }
       },
       child: Container(
-        width: itemWidth,
         height: 113,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -362,157 +350,155 @@ class _HomePageState extends State<HomePage> {
   Widget getContents() {
     double responsiveWidth = MediaQuery.of(context).size.width - 20;
     double descriptionWidth = (responsiveWidth / 10.0) * 6;
-    return SizedBox(
-      width: responsiveWidth,
-      child: SingleChildScrollView(
-        child: Obx(() {
-          if (courseController.courseRefreshing.value) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (!courseController.courseRefreshing.value &&
-              courseController.freeCourseList.isEmpty) {
-            return Center(
-              child: Container(
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(30)),
-                padding: const EdgeInsets.only(top: 20),
-                width: 250,
-                height: 120,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.search,
-                      size: 50,
+    return Obx(
+      () {
+        if (courseController.courseRefreshing.value) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (!courseController.courseRefreshing.value &&
+            courseController.freeCourseList.isEmpty) {
+          return Center(
+            child: Container(
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(30)),
+              padding: const EdgeInsets.only(top: 20),
+              width: 250,
+              height: 120,
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.search,
+                    size: 50,
+                  ),
+                  Text(
+                    'No course is found',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold,
                     ),
-                    Text(
-                      'No course is found',
-                      style: TextStyle(
-                          fontSize: 15,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+
+        return ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          padding: EdgeInsets.zero,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () {
+                courseController.selectedFreeCourse =
+                    courseController.freeCourseList.elementAt(index);
+                courseController.getIndividualCourse(
+                    context,
+                    courseController.freeCourseList
+                        .elementAt(index)
+                        .slug
+                        .toString());
+                if (courseController.freeCourseList
+                        .elementAt(index)
+                        .subscriptionStatus ==
+                    "active") {
+                  Get.toNamed(RoutesPath.courseContentPage);
+                  return;
+                } else {
+                  Get.toNamed(RoutesPath.courseDetail);
+                }
+                /*             Get.toNamed(RoutesPath.courseDetail);*/
+              },
+              child: Card(
+                child: SizedBox(
+                  height: 80,
+                  width: descriptionWidth,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 120,
+                        height: 80,
+                        child: AppCachedNetworkImage(
+                          imageUrl: courseController.freeCourseList
+                              .elementAt(index)
+                              .photo
+                              .toString(),
+                          fit: BoxFit.fill,
+                          cachedHeight: 143,
+                          cachedWidth: 256,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: descriptionWidth - 20.0,
+                            child: Text(
+                              courseController.freeCourseList
+                                  .elementAt(index)
+                                  .title
+                                  .toString(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  fontFamily: 'Poppins'),
+                            ),
+                          ),
+                          SizedBox(
+                            width: descriptionWidth - 25.0,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      height: 18,
+                                      width: 17,
+                                      child: Center(
+                                        child: Image.asset(
+                                          'assets/images/enrolled.png',
+                                          scale: 1,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 9,
+                                    ),
+                                    Text(
+                                      courseController.freeCourseList
+                                          .elementAt(index)
+                                          .usersCount
+                                          .toString(),
+                                      style: const TextStyle(
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 12,
+                                        color: CustomColors.enrolledColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                getPrice(index)
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
-          }
-
-          return ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.zero,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  courseController.selectedFreeCourse =
-                      courseController.freeCourseList.elementAt(index);
-                  courseController.getIndividualCourse(
-                      context,
-                      courseController.freeCourseList
-                          .elementAt(index)
-                          .slug
-                          .toString());
-                  if (courseController.freeCourseList
-                          .elementAt(index)
-                          .subscriptionStatus ==
-                      "active") {
-                    Get.toNamed(RoutesPath.courseContentPage);
-                  } else {
-                    Get.toNamed(RoutesPath.courseDetail);
-                  }
-                  /*             Get.toNamed(RoutesPath.courseDetail);*/
-                },
-                child: Card(
-                  child: SizedBox(
-                    height: 80,
-                    width: descriptionWidth,
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 120,
-                          height: 80,
-                          child: AppCachedNetworkImage(
-                            imageUrl: courseController.freeCourseList
-                                .elementAt(index)
-                                .photo
-                                .toString(),
-                            fit: BoxFit.fill,
-                            cachedHeight: 143,
-                            cachedWidth: 256,
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              width: descriptionWidth - 20.0,
-                              child: Text(
-                                courseController.freeCourseList
-                                    .elementAt(index)
-                                    .title
-                                    .toString(),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                    fontFamily: 'Poppins'),
-                              ),
-                            ),
-                            SizedBox(
-                              width: descriptionWidth - 25.0,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      SizedBox(
-                                        height: 18,
-                                        width: 17,
-                                        child: Center(
-                                          child: Image.asset(
-                                            'assets/images/enrolled.png',
-                                            scale: 1,
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 9,
-                                      ),
-                                      Text(
-                                        courseController.freeCourseList
-                                            .elementAt(index)
-                                            .usersCount
-                                            .toString(),
-                                        style: const TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12,
-                                          color: CustomColors.enrolledColor,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  getPrice(index)
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            },
-            itemCount: courseController.freeCourseList.length,
-            primary: false,
-            shrinkWrap: true,
-          );
-        }),
-      ),
+          },
+          itemCount: courseController.freeCourseList.length,
+          primary: false,
+          shrinkWrap: true,
+        );
+      },
     );
   }
 

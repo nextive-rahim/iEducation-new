@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:ieducation/api-controller/api.dart';
 import 'package:ieducation/authentication/authentication_controller.dart';
 import 'package:ieducation/authentication/authentication_state.dart';
-import 'package:ieducation/pages/auth/view/login_page.dart';
-import 'package:ieducation/pages/bottom-navigation/view/bottom_navigation.dart';
 import 'package:ieducation/routes.dart';
 import 'package:ieducation/utils/handleErrorMessage.dart';
 
@@ -35,12 +33,11 @@ class AuthController extends GetxController {
     Get.back();
     if (result['statusCode'] == 200) {
       authenticationController.state = Authenticated(user: result['data']);
-
-      Get.offAll(() => const BottomNavigation());
+      Get.offNamed(RoutesPath.bottomNavPage);
       Get.snackbar(
         'Success',
         'Login Successfully',
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
       );
     } else {
       handleErrorMessage(
@@ -78,9 +75,12 @@ class AuthController extends GetxController {
     Get.back();
     if (result['statusCode'] == 200) {
       passwordController.clear();
-      Get.snackbar('Success', 'Register Successfully',
-          snackPosition: SnackPosition.BOTTOM);
-      Get.offAll(() => LoginPage());
+      Get.snackbar(
+        'Success',
+        'Register Successfully',
+        snackPosition: SnackPosition.TOP,
+      );
+      Get.offNamed(RoutesPath.login);
     } else {
       handleErrorMessage(context, result);
     }
@@ -92,9 +92,13 @@ class AuthController extends GetxController {
     Get.back();
     if (result['statusCode'] == 200) {
       Get.back();
-      Get.offAll(() => const BottomNavigation());
-      Get.snackbar('Success', 'Profile Update successfully',
-          snackPosition: SnackPosition.BOTTOM);
+      Get.offNamed(RoutesPath.bottomNavPage);
+
+      Get.snackbar(
+        'Success',
+        'Profile Update successfully',
+        snackPosition: SnackPosition.TOP,
+      );
       Get.back();
     } else {
       handleErrorMessage(context, result);
@@ -106,9 +110,12 @@ class AuthController extends GetxController {
     Get.back();
     if (result['statusCode'] == 200) {
       passwordController.clear();
-      Get.snackbar('Success', 'Password reset Successfully',
-          snackPosition: SnackPosition.BOTTOM);
-      Get.offAll(() => LoginPage());
+      Get.snackbar(
+        'Success',
+        'Password reset Successfully',
+        snackPosition: SnackPosition.TOP,
+      );
+      Get.offNamed(RoutesPath.login);
     } else {
       handleErrorMessage(context, result);
     }
@@ -118,8 +125,11 @@ class AuthController extends GetxController {
     var result = await api.getOTPApi(params);
     Get.back();
     if (result['statusCode'] == 200) {
-      Get.snackbar('Success', 'OTP Sent Successfully',
-          snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar(
+        'Success',
+        'OTP Sent Successfully',
+        snackPosition: SnackPosition.TOP,
+      );
       Get.toNamed(RoutesPath.confirmPhoneNumber);
     } else {
       handleErrorMessage(context, result);
@@ -128,11 +138,12 @@ class AuthController extends GetxController {
 
   void signOut() async {
     authenticationController.signOut();
-    Get.offAll(() => LoginPage());
+    Get.offNamed(RoutesPath.login);
+
     Get.snackbar(
       'Success',
       'Logout Successfully',
-      snackPosition: SnackPosition.BOTTOM,
+      snackPosition: SnackPosition.TOP,
     );
   }
 }
