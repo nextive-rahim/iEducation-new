@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:ieducation/colors.dart';
-import 'package:ieducation/common-widget/common-header.dart';
 import 'package:ieducation/pages/notices/controller/notice_controller.dart';
 import 'package:ieducation/utils/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -26,15 +25,20 @@ class _NoticeDetailPageState extends State<NoticeDetailPage> {
     double responsiveHeight = MediaQuery.of(context).size.height - 130;
     return Scaffold(
       backgroundColor: CustomColors.pageBackground,
-      body: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20),
-        child: SingleChildScrollView(
+      appBar: AppBar(
+        title: const Text('Notice Details'),
+        centerTitle: true,
+        backgroundColor: CustomColors.pageBackground,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 15,
+            right: 15,
+            bottom: 15,
+          ),
           child: Column(
             children: [
-              commonHeader('Notice', context),
-              const SizedBox(
-                height: 25,
-              ),
               Obx(() {
                 if (controller.noticeIsRefreshing.value) {
                   return const Center(
@@ -99,11 +103,15 @@ class _NoticeDetailPageState extends State<NoticeDetailPage> {
                           child: AppCachedNetworkImage(
                             imageUrl: url,
                             fit: BoxFit.cover,
-                            cachedHeight: 975,
+                            cachedHeight: 640,
+                            cachedWidth: 640,
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(right: 20, top: 20),
+                          padding: const EdgeInsets.only(
+                            right: 20,
+                            top: 20,
+                          ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [

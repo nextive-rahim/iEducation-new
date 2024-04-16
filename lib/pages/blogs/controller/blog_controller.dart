@@ -5,11 +5,11 @@ import 'package:ieducation/pages/blogs/model/blog_category_model.dart';
 import 'package:ieducation/pages/blogs/model/blog_detail_model.dart';
 import 'package:ieducation/pages/blogs/model/blog_model.dart';
 import 'package:ieducation/pages/blogs/model/comment_model.dart';
-import 'package:ieducation/routes.dart';
 import 'package:ieducation/utils/handleErrorMessage.dart';
 
 class BlogController extends GetxController {
   var blogIsRefreshing = false.obs;
+  var blogDetailsIsRefreshing = false.obs;
   var commentRefreshing = false.obs;
   List<BlogDataList> blogList = [];
   RxList<CommentListData> commentList = <CommentListData>[].obs;
@@ -33,8 +33,8 @@ class BlogController extends GetxController {
     Get.back();
     if (result['statusCode'] == 200) {
       bodyController.clear();
-      getCommentList(context, selectedCommentableId.toString(),
-          selectedCommentableType.toString());
+      getCommentList(
+          selectedCommentableId.toString(), selectedCommentableType.toString());
     } else {
       handleErrorMessage(context, result);
     }
@@ -45,8 +45,8 @@ class BlogController extends GetxController {
     result = await api.deleteCommentApi(id);
 
     if (result['statusCode'] == 200) {
-      getCommentList(context, selectedCommentableId.toString(),
-          selectedCommentableType.toString());
+      getCommentList(
+          selectedCommentableId.toString(), selectedCommentableType.toString());
       Get.snackbar('Success', 'Comment delete successfully');
     } else {
       handleErrorMessage(context, result);
@@ -61,8 +61,8 @@ class BlogController extends GetxController {
       editCommentId = null;
       bodyController.clear();
       Get.snackbar('Success', 'Comment successfully updated!');
-      getCommentList(context, selectedCommentableId.toString(),
-          selectedCommentableType.toString());
+      getCommentList(
+          selectedCommentableId.toString(), selectedCommentableType.toString());
     } else {
       handleErrorMessage(context, result);
     }
@@ -83,7 +83,7 @@ class BlogController extends GetxController {
     }
   }
 
-  void getCommentList(context, id, type) async {
+  void getCommentList(id, type) async {
     var result;
     commentRefreshing.value = true;
     print(id.toString());
@@ -96,17 +96,14 @@ class BlogController extends GetxController {
     }
   }
 
-  void getSingleBlog(context, slug) async {
+  Future<void> getSingleBlog(slug) async {
     var result;
-    blogIsRefreshing.value = true;
+    blogDetailsIsRefreshing.value = true;
     result = await api.getSingleBlog(slug);
-    blogIsRefreshing.value = false;
+    blogDetailsIsRefreshing.value = false;
     if (result['statusCode'] == 200) {
       singleBlog = result['data'].data;
-      Get.toNamed(RoutesPath.blogDetailPage);
-    } else {
-      handleErrorMessage(context, result);
-    }
+    } else {}
   }
 
   void getBlogByCategoryList(context, slug) async {
@@ -124,8 +121,8 @@ class BlogController extends GetxController {
   }
 
   Future<void> onRefresh() async {
-    getCommentList('context', selectedCommentableId.toString(),
-        selectedCommentableType.toString());
+    getCommentList(
+        selectedCommentableId.toString(), selectedCommentableType.toString());
   }
 
   Future<List<BlogCategoryListData>?> getBlogCategoryList() async {

@@ -4,6 +4,7 @@ import 'package:ieducation/colors.dart';
 import 'package:ieducation/common-widget/left-aligin-title.dart';
 import 'package:ieducation/pages/blogs/controller/blog_controller.dart';
 import 'package:ieducation/pages/blogs/model/blog_category_model.dart';
+import 'package:ieducation/routes.dart';
 import 'package:ieducation/utils/cached_network_image.dart';
 
 class BlogPage extends StatefulWidget {
@@ -202,17 +203,19 @@ class _BlogPageState extends State<BlogPage> {
 
           return GestureDetector(
             onTap: () {
-              controller.getSingleBlog(
-                context,
-                controller.blogList.elementAt(index).slug.toString(),
-              );
-              setState(() {
-                controller.selectedCommentableType = 'post';
-                controller.selectedCommentableId =
-                    controller.blogList.elementAt(index).id.toString();
-              });
-              controller.getCommentList(context,
-                  controller.blogList.elementAt(index).id.toString(), 'post');
+              Get.toNamed(RoutesPath.blogDetailPage,
+                  arguments:
+                      [controller.blogList.elementAt(index).slug.toString(),controller.blogList.elementAt(index).id.toString()]);
+              // controller.getSingleBlog(
+              //   controller.blogList.elementAt(index).slug.toString(),
+              // );
+              // setState(() {
+              //   controller.selectedCommentableType = 'post';
+              //   controller.selectedCommentableId =
+              //       controller.blogList.elementAt(index).id.toString();
+              // });
+              // controller.getCommentList(context,
+              //     controller.blogList.elementAt(index).id.toString(), 'post');
             },
             child: Card(
               child: SizedBox(

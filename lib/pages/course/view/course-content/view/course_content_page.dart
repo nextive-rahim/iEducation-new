@@ -92,7 +92,6 @@ class _CourseContentPageState extends State<CourseContentPage> {
                   .toString();
               blogController.selectedCommentableType = 'content';
               blogController.getCommentList(
-                  context,
                   controller.selectedCourseSections
                       .elementAt(index)
                       .id

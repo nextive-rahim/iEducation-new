@@ -41,7 +41,7 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
     blogController.selectedCommentableId = widget.contentId.toString();
     blogController.selectedCommentableType = 'content';
     blogController.getCommentList(
-      context,
+    
       blogController.selectedCommentableId,
       blogController.selectedCommentableType,
     );

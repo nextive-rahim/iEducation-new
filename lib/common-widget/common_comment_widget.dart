@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:ieducation/colors.dart';
 import 'package:ieducation/common-widget/left-aligin-title.dart';
@@ -23,7 +22,6 @@ class _commonCommentWidgetState extends State<commonCommentWidget> {
 
   @override
   Widget build(BuildContext context) {
-    double responsiveWidth = MediaQuery.of(context).size.width - 40;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -74,8 +72,11 @@ class _commonCommentWidgetState extends State<commonCommentWidget> {
               String name =
                   controller.commentList.elementAt(index).user?.name ??
                       'Unknown User';
-              String imageUrl =
-                  controller.commentList.elementAt(index).user?.photo ?? '';
+              String imageUrl = controller.commentList
+                      .elementAt(index)
+                      .user
+                      ?.photo ??
+                  'https://static.vecteezy.com/system/resources/previews/005/337/799/non_2x/icon-image-not-found-free-vector.jpg';
 
               String commentUserId =
                   controller.commentList.elementAt(index).user?.id.toString() ??
@@ -83,6 +84,8 @@ class _commonCommentWidgetState extends State<commonCommentWidget> {
               String id = controller.commentList.elementAt(index).id.toString();
 
               return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
                     decoration: BoxDecoration(
@@ -92,7 +95,7 @@ class _commonCommentWidgetState extends State<commonCommentWidget> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
@@ -105,105 +108,88 @@ class _commonCommentWidgetState extends State<commonCommentWidget> {
                                 borderRadius: BorderRadius.circular(50),
                                 child: AppCachedNetworkImage(
                                   imageUrl: imageUrl,
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.fill,
                                   cachedHeight: 99,
                                   cachedWidth: 99,
                                 ),
                               ),
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFFE3E4E8),
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 3.0, top: 3.0),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                            const SizedBox(width: 10),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFE3E4E8),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      name,
+                                      style: const TextStyle(
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    Text(body),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            commentUserId ==
+                                    homeController.myInfo
+                                        .elementAt(0)
+                                        .id
+                                        .toString()
+                                ? Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Row(
                                       children: [
-                                        Container(
-                                          width: responsiveWidth - 50,
-                                          padding:
-                                              const EdgeInsets.only(left: 6.0),
-                                          child: Text(
-                                            name,
-                                            style: const TextStyle(
+                                        GestureDetector(
+                                          onTap: () {
+                                            controller.deleteComment(
+                                                context, id);
+                                          },
+                                          child: const Text(
+                                            'Delete',
+                                            style: TextStyle(
                                               fontFamily: 'Poppins',
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 16,
+                                              fontSize: 10,
                                             ),
                                           ),
                                         ),
-                                        SizedBox(
-                                          width: responsiveWidth - 50,
-                                          child: HtmlWidget(
-                                            body,
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              controller.bodyController.text =
+                                                  controller.commentList
+                                                      .elementAt(index)
+                                                      .body
+                                                      .toString();
+                                              controller.params.clear();
+
+                                              controller.editCommentId = id;
+                                            });
+                                          },
+                                          child: const Text(
+                                            'Edit',
+                                            style: TextStyle(
+                                              fontFamily: 'Poppins',
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 10,
+                                            ),
                                           ),
                                         ),
                                       ],
                                     ),
-                                  ),
-                                ),
-                                commentUserId ==
-                                        homeController.myInfo
-                                            .elementAt(0)
-                                            .id
-                                            .toString()
-                                    ? Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: Row(
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                controller.deleteComment(
-                                                    context, id);
-                                              },
-                                              child: const Text(
-                                                'Delete',
-                                                style: TextStyle(
-                                                  fontFamily: 'Poppins',
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 10,
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  controller
-                                                          .bodyController.text =
-                                                      controller.commentList
-                                                          .elementAt(index)
-                                                          .body
-                                                          .toString();
-                                                  controller.params.clear();
-
-                                                  controller.editCommentId = id;
-                                                });
-                                              },
-                                              child: const Text(
-                                                'Edit',
-                                                style: TextStyle(
-                                                  fontFamily: 'Poppins',
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 10,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    : const SizedBox(),
-                              ],
-                            ),
+                                  )
+                                : const SizedBox(),
                           ],
                         ),
                       ],
@@ -224,7 +210,7 @@ class _commonCommentWidgetState extends State<commonCommentWidget> {
           children: [
             SizedBox(
               height: 60,
-              width: responsiveWidth,
+              width: MediaQuery.of(context).size.width - 40,
               child: TextFormField(
                 textAlign: TextAlign.left,
                 textAlignVertical: TextAlignVertical.center,
@@ -238,7 +224,11 @@ class _commonCommentWidgetState extends State<commonCommentWidget> {
                 ),
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.only(
-                      top: 10, right: 20, bottom: 10, left: 20),
+                    top: 10,
+                    right: 20,
+                    bottom: 10,
+                    left: 20,
+                  ),
                   isDense: true,
                   hintText: 'Write a comment...',
                   hintStyle: const TextStyle(
