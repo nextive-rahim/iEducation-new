@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ieducation/app.dart';
 import 'package:ieducation/colors.dart';
-import 'package:ieducation/common-widget/common-header.dart';
 import 'package:ieducation/common-widget/left-aligin-title.dart';
 import 'package:ieducation/pages/products/controller/product_controller.dart';
 import 'package:ieducation/routes.dart';
@@ -15,18 +14,18 @@ class ProductPage extends GetView<ProductController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CustomColors.pageBackground,
-      body: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              commonHeader('Books', context),
-              const SizedBox(
-                height: 25,
-              ),
-              getProductList(),
-            ],
+      appBar: AppBar(
+        title: const Text('Books'),
+        centerTitle: true,
+        backgroundColor: CustomColors.pageBackground,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 15,
+            right: 15,
           ),
+          child: getProductList(),
         ),
       ),
     );
@@ -113,9 +112,7 @@ class ProductPage extends GetView<ProductController> {
                       color: Colors.white,
                       child: Column(
                         children: [
-                          const SizedBox(
-                            height: 6,
-                          ),
+                          const SizedBox(height: 6),
                           SizedBox(
                             child: Text(
                               controller.productList[index].title.toString(),

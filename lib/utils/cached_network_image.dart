@@ -107,7 +107,7 @@ class _AppCachedNetworkImage extends State<AppCachedNetworkImage> {
                       child: Text(
                         value,
                         style: const TextStyle(
-                          fontSize: 20,
+                          fontSize: 15,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

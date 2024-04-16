@@ -56,8 +56,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double responsiveHeight = MediaQuery.of(context).size.height - 190;
+    double responsiveHeight = MediaQuery.of(context).size.height;
     return Scaffold(
+      backgroundColor: CustomColors.pageBackground,
       drawer: const GetDrawer(),
       key: scaffoldKey,
       body: SingleChildScrollView(
@@ -65,12 +66,13 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             getAppHeader(),
-            const SizedBox(
-              height: 15,
-            ),
+            const SizedBox(height: 5),
             Container(
               height: responsiveHeight,
-              padding: const EdgeInsets.only(left: 20, right: 20),
+              padding: const EdgeInsets.only(
+                left: 15,
+                right: 15,
+              ),
               color: CustomColors.bodyBackground,
               child: RefreshIndicator(
                 onRefresh: controller.onRefresh,
@@ -93,61 +95,64 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget getAppHeader() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 55),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            flex: 2,
-            child: GestureDetector(
-              onTap: () => scaffoldKey.currentState!.openDrawer(),
-              child: SizedBox(
-                height: 45,
-                width: 45,
-                child: Center(
-                  child: Image.asset(
-                    'assets/images/head_menu.png',
-                    scale: 1,
+    return Container(
+      color: CustomColors.pageBackground,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 40),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              flex: 2,
+              child: GestureDetector(
+                onTap: () => scaffoldKey.currentState!.openDrawer(),
+                child: SizedBox(
+                  height: 45,
+                  width: 45,
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/head_menu.png',
+                      scale: 1,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 6,
-            child: SizedBox(
-              height: 50,
-              width: 97,
-              child: Center(
-                child: Image.asset(
-                  'assets/images/logo.png',
-                  scale: 1,
-                  cacheHeight: 131,
-                  cacheWidth: 310,
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: GestureDetector(
-              onTap: () {
-                Get.toNamed(RoutesPath.noticePage);
-              },
+            Expanded(
+              flex: 6,
               child: SizedBox(
-                height: 45,
-                width: 45,
+                height: 50,
+                width: 97,
                 child: Center(
                   child: Image.asset(
-                    'assets/images/head_notification.png',
+                    'assets/images/logo.png',
                     scale: 1,
+                    cacheHeight: 131,
+                    cacheWidth: 310,
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+            Expanded(
+              flex: 2,
+              child: GestureDetector(
+                onTap: () {
+                  Get.toNamed(RoutesPath.noticePage);
+                },
+                child: SizedBox(
+                  height: 45,
+                  width: 45,
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/head_notification.png',
+                      scale: 1,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -190,15 +195,11 @@ class _HomePageState extends State<HomePage> {
           height: 20,
         ),
         leftAlignTitle('Free contents'),
-        const SizedBox(
-          height: 20,
-        ),
+        const SizedBox(height: 10),
         Row(
           children: [
             getFreeContentsItem('exam'),
-            const SizedBox(
-              width: 20,
-            ),
+            const SizedBox(width: 20),
             getFreeContentsItem('course'),
           ],
         )
@@ -275,50 +276,45 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget getCategories() {
-    double responsiveWidth = MediaQuery.of(context).size.width - 40;
     return Column(
       children: [
-        const SizedBox(
-          height: 20,
-        ),
+        const SizedBox(height: 20),
         leftAlignTitle('Categories'),
-        Container(
-          width: responsiveWidth,
-          decoration: const BoxDecoration(
-            color: CustomColors.pageBackground,
-          ),
-          child: Obx(() {
-            return GridView.builder(
-              physics: const ScrollPhysics(),
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: courseController.courseCategories.length,
-              itemBuilder: (context, index) => GestureDetector(
-                onTap: () {
-                  bool isBook = courseController.courseCategories
+        const SizedBox(height: 10),
+        Obx(() {
+          return GridView.builder(
+            shrinkWrap: true,
+            itemCount: courseController.courseCategories.length,
+            padding: EdgeInsets.zero,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) => GestureDetector(
+              onTap: () {
+                bool isBook = courseController.courseCategories
+                        .elementAt(index)
+                        .photo
+                        .toString() ==
+                    "assets/images/bookHouse.png";
+                if (isBook) {
+                  Get.toNamed(RoutesPath.productPage);
+                } else {
+                  Get.toNamed(
+                    RoutesPath.courseAndCategoryPage,
+                    arguments: [
+                      courseController.courseCategories
                           .elementAt(index)
-                          .photo
-                          .toString() ==
-                      "assets/images/bookHouse.png";
-                  if (isBook) {
-                    Get.toNamed(RoutesPath.productPage);
-                  } else {
-                    Get.toNamed(
-                      RoutesPath.courseAndCategoryPage,
-                      arguments: [
-                        courseController.courseCategories
-                            .elementAt(index)
-                            .slug
-                            .toString()
-                      ],
-                    );
-                  }
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(11),
-                  ),
+                          .slug
+                          .toString()
+                    ],
+                  );
+                }
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(11),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(11),
                     child: courseController.courseCategories
@@ -329,28 +325,29 @@ class _HomePageState extends State<HomePage> {
                         ? Image.asset(
                             'assets/images/bookHouse.png',
                             scale: 1,
-                            cacheHeight: 316,
-                            cacheWidth: 474,
+                            cacheHeight: 143,
+                            cacheWidth: 390,
                           )
                         : AppCachedNetworkImage(
                             imageUrl: courseController.courseCategories
                                 .elementAt(index)
                                 .photo
                                 .toString(),
-                            cachedHeight: 221,
-                            cachedWidth: 390,
+                            cachedHeight: 180,
+                            cachedWidth: 290,
                           ),
                   ),
                 ),
               ),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 3 / 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10),
-            );
-          }),
-        ),
+            ),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 3 / 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+            ),
+          );
+        }),
       ],
     );
   }
@@ -358,18 +355,16 @@ class _HomePageState extends State<HomePage> {
   Widget getFeaturedCourses() {
     return Column(
       children: [
-        const SizedBox(
-          height: 20,
-        ),
+        const SizedBox(height: 20),
         leftAlignTitle('Featured Courses'),
+        const SizedBox(height: 10),
         getContents(),
       ],
     );
   }
 
   Widget getContents() {
-    double responsiveWidth = MediaQuery.of(context).size.width - 40;
-    double imageWidth = (responsiveWidth / 10.0) * 4;
+    double responsiveWidth = MediaQuery.of(context).size.width - 20;
     double descriptionWidth = (responsiveWidth / 10.0) * 6;
     return SizedBox(
       width: responsiveWidth,
@@ -410,7 +405,8 @@ class _HomePageState extends State<HomePage> {
           }
 
           return ListView.builder(
-            physics: const ScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.only(bottom: 190),
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
@@ -434,31 +430,29 @@ class _HomePageState extends State<HomePage> {
                 },
                 child: Card(
                   child: SizedBox(
-                    height: 100,
+                    height: 80,
                     width: descriptionWidth,
                     child: Row(
                       children: [
                         SizedBox(
-                          width: imageWidth,
+                          width: 120,
+                          height: 80,
                           child: AppCachedNetworkImage(
                             imageUrl: courseController.freeCourseList
                                 .elementAt(index)
                                 .photo
                                 .toString(),
-                            fit: BoxFit.cover,
-                            cachedHeight: 219,
-                            cachedWidth: 390,
+                            fit: BoxFit.fill,
+                            cachedHeight: 143,
+                            cachedWidth: 256,
                           ),
                         ),
-                        const SizedBox(
-                          width: 10,
-                        ),
+                        const SizedBox(width: 10),
                         Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const SizedBox(height: 9),
                             SizedBox(
                               width: descriptionWidth - 20.0,
-                              height: 70,
                               child: Text(
                                 courseController.freeCourseList
                                     .elementAt(index)
@@ -471,7 +465,6 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             SizedBox(
-                              height: 18,
                               width: descriptionWidth - 25.0,
                               child: Row(
                                 mainAxisAlignment:

@@ -41,18 +41,19 @@ class _CourseDetailState extends State<CourseDetail> {
 
   @override
   Widget build(BuildContext context) {
-    double responsiveHeight = MediaQuery.of(context).size.height - 140;
+    double responsiveHeight = MediaQuery.of(context).size.height - 100;
     return Scaffold(
       backgroundColor: CustomColors.pageBackground,
       body: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20),
+        padding: const EdgeInsets.only(
+          left: 15,
+          right: 15,
+        ),
         child: SingleChildScrollView(
           child: Column(
             children: [
               commonHeader('Course Details', context),
-              const SizedBox(
-                height: 25,
-              ),
+              const SizedBox(height: 10),
               SizedBox(
                 height: responsiveHeight,
                 child: SingleChildScrollView(
@@ -91,7 +92,7 @@ class _CourseDetailState extends State<CourseDetail> {
 
   Widget getVideoSection() {
     String photo = controller.selectedFreeCourse!.photo.toString();
-    double responsiveWidth = MediaQuery.of(context).size.width - 40;
+    double responsiveWidth = MediaQuery.of(context).size.width - 20;
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
@@ -109,8 +110,8 @@ class _CourseDetailState extends State<CourseDetail> {
                     child: AppCachedNetworkImage(
                       imageUrl: photo,
                       fit: BoxFit.cover,
-                      cachedHeight: 510,
-                      cachedWidth: 910,
+                      cachedHeight: 327,
+                      cachedWidth: 584,
                     ),
                   )
                 : const Icon(
