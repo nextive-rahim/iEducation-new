@@ -52,6 +52,7 @@ class _CourseDetailState extends State<CourseDetail> {
           padding: const EdgeInsets.only(
             left: 20,
             right: 20,
+            top: 10,
           ),
           child: Column(
             children: [

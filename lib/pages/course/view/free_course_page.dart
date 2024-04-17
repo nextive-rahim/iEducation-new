@@ -43,13 +43,14 @@ class _FreeCoursePageState extends State<FreeCoursePage> {
         elevation: 0,
         title: const Text('Free Courses'),
         centerTitle: true,
+        backgroundColor: CustomColors.pageBackground,
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(
-            left: 20,
-            right: 20,
-            top: 20,
+            left: 10,
+            right: 10,
+            top: 10,
           ),
           child: Column(
             children: [
@@ -57,167 +58,173 @@ class _FreeCoursePageState extends State<FreeCoursePage> {
               // const SizedBox(height: 5),
               leftAlignTitle('Free Courses'),
               const SizedBox(height: 10),
-              Obx(() {
-                if (controller.courseRefreshing.value) {
-                  return ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.zero,
-                    itemBuilder: (context, index) {
-                      return Card(
-                        child: Container(
-                          height: 80,
-                          width: descriptionWidth,
-                          color: Colors.white,
-                        ),
-                      );
-                    },
-                    itemCount: 5,
-                    primary: false,
-                    shrinkWrap: true,
-                  );
-                }
-                if (controller.freeCourseList.isEmpty) {
-                  return Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30)),
-                      padding: const EdgeInsets.only(top: 20),
-                      width: 250,
-                      height: 120,
-                      child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.search,
-                            size: 50,
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 10,
+                  right: 10,
+                ),
+                child: Obx(() {
+                  if (controller.courseRefreshing.value) {
+                    return ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.zero,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          child: Container(
+                            height: 80,
+                            width: descriptionWidth,
+                            color: Colors.white,
                           ),
-                          Text(
-                            'No course is found',
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                }
-
-                return ListView.builder(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        controller.selectedFreeCourse =
-                            controller.freeCourseList.elementAt(index);
-                        controller.getIndividualCourse(
-                            context,
-                            controller.freeCourseList
-                                .elementAt(index)
-                                .slug
-                                .toString());
-                        if (controller.freeCourseList
-                                .elementAt(index)
-                                .subscriptionStatus ==
-                            "active") {
-                          Get.toNamed(RoutesPath.courseContentPage);
-                        } else {
-                          Get.toNamed(RoutesPath.courseDetail);
-                        }
+                        );
                       },
-                      child: Card(
-                        child: SizedBox(
-                          height: 80,
-                          width: descriptionWidth,
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 120,
-                                height: 80,
-                                child: AppCachedNetworkImage(
-                                  imageUrl: controller.freeCourseList
-                                      .elementAt(index)
-                                      .photo
-                                      .toString(),
-                                  fit: BoxFit.fill,
-                                  cachedHeight: 143,
-                                  cachedWidth: 256,
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SizedBox(
-                                    width: descriptionWidth - 20.0,
-                                    child: Text(
-                                      controller.freeCourseList
-                                          .elementAt(index)
-                                          .title
-                                          .toString(),
-                                      maxLines: 2,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14,
-                                        fontFamily: 'Poppins',
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: descriptionWidth - 25.0,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            SizedBox(
-                                              height: 18,
-                                              width: 17,
-                                              child: Center(
-                                                child: Image.asset(
-                                                  'assets/images/enrolled.png',
-                                                  scale: 1,
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              width: 9,
-                                            ),
-                                            Text(
-                                              controller.freeCourseList
-                                                  .elementAt(index)
-                                                  .usersCount
-                                                  .toString(),
-                                              style: const TextStyle(
-                                                fontFamily: 'Poppins',
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 12,
-                                                color:
-                                                    CustomColors.enrolledColor,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        getPrice(index)
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
+                      itemCount: 5,
+                      primary: false,
+                      shrinkWrap: true,
+                    );
+                  }
+                  if (controller.freeCourseList.isEmpty) {
+                    return Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30)),
+                        padding: const EdgeInsets.only(top: 20),
+                        width: 250,
+                        height: 120,
+                        child: const Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.search,
+                              size: 50,
+                            ),
+                            Text(
+                              'No course is found',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
                         ),
                       ),
                     );
-                  },
-                  itemCount: controller.freeCourseList.length,
-                  primary: false,
-                  shrinkWrap: true,
-                );
-              })
+                  }
+
+                  return ListView.builder(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          controller.selectedFreeCourse =
+                              controller.freeCourseList.elementAt(index);
+                          controller.getIndividualCourse(
+                              context,
+                              controller.freeCourseList
+                                  .elementAt(index)
+                                  .slug
+                                  .toString());
+                          if (controller.freeCourseList
+                                  .elementAt(index)
+                                  .subscriptionStatus ==
+                              "active") {
+                            Get.toNamed(RoutesPath.courseContentPage);
+                          } else {
+                            Get.toNamed(RoutesPath.courseDetail);
+                          }
+                        },
+                        child: Card(
+                          child: SizedBox(
+                            height: 80,
+                            width: descriptionWidth,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 120,
+                                  height: 80,
+                                  child: AppCachedNetworkImage(
+                                    imageUrl: controller.freeCourseList
+                                        .elementAt(index)
+                                        .photo
+                                        .toString(),
+                                    fit: BoxFit.fill,
+                                    cachedHeight: 143,
+                                    cachedWidth: 256,
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SizedBox(
+                                      width: descriptionWidth - 20.0,
+                                      child: Text(
+                                        controller.freeCourseList
+                                            .elementAt(index)
+                                            .title
+                                            .toString(),
+                                        maxLines: 2,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                          fontFamily: 'Poppins',
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: descriptionWidth - 25.0,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              SizedBox(
+                                                height: 18,
+                                                width: 17,
+                                                child: Center(
+                                                  child: Image.asset(
+                                                    'assets/images/enrolled.png',
+                                                    scale: 1,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                width: 9,
+                                              ),
+                                              Text(
+                                                controller.freeCourseList
+                                                    .elementAt(index)
+                                                    .usersCount
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 12,
+                                                  color: CustomColors
+                                                      .enrolledColor,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          getPrice(index)
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    itemCount: controller.freeCourseList.length,
+                    primary: false,
+                    shrinkWrap: true,
+                  );
+                }),
+              )
             ],
           ),
         ),
