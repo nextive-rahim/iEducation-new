@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ieducation/colors.dart';
-import 'package:ieducation/common-widget/common-header.dart';
 import 'package:ieducation/pages/course/widgets/CommonButton.dart';
 import 'package:ieducation/pages/orders/controller/order_controller.dart';
 import 'package:ieducation/pages/products/controller/product_controller.dart';
@@ -29,14 +28,18 @@ class _AddressPageState extends State<AddressPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CustomColors.pageBackground,
+      appBar: AppBar(
+        title: const Text('Select or Create Address'),
+        centerTitle: true,
+        backgroundColor: CustomColors.pageBackground,
+      ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20),
+        padding: const EdgeInsets.only(
+          left: 20,
+          right: 20,
+        ),
         child: Column(
           children: [
-            commonHeader('Select or Create Address', context),
-            const SizedBox(
-              height: 25,
-            ),
             getAddressList(),
             const SizedBox(
               height: 25,
@@ -49,9 +52,7 @@ class _AddressPageState extends State<AddressPage> {
                   },
                   child: const CommonButton(title: 'Create New'),
                 ),
-                const SizedBox(
-                  height: 15,
-                )
+                const SizedBox(height: 15)
               ],
             )
           ],

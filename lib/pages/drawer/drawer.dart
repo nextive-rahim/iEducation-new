@@ -1,10 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ieducation/colors.dart';
 import 'package:ieducation/pages/auth/controller/auth_controller.dart';
 import 'package:ieducation/pages/home/controller/home_controller.dart';
 import 'package:ieducation/routes.dart';
+import 'package:ieducation/utils/cached_network_image.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -49,8 +49,11 @@ class _GetDrawerState extends State<GetDrawer> {
     return Drawer(
       width: 310,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topRight: Radius.circular(50), bottomRight: Radius.circular(50))),
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(20),
+          bottomRight: Radius.circular(20),
+        ),
+      ),
       child: Column(
         children: [
           const SizedBox(
@@ -244,71 +247,71 @@ class _GetDrawerState extends State<GetDrawer> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Obx(() {
-            if (controller.myInfo.isNotEmpty) {
-              return Column(
-                children: [
-                  controller.myInfo.elementAt(0).photo != null
-                      ? SizedBox(
-                          height: 100,
-                          width: 100,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(50),
-                            child: CachedNetworkImage(
-                              imageUrl: controller.myInfo
-                                  .elementAt(0)
-                                  .photo
-                                  .toString(),
-                              fit: BoxFit.cover,
-                              errorWidget: (context, url, error) {
-                                return const Icon(Icons.error);
-                              },
+          Obx(
+            () {
+              if (controller.myInfo.isNotEmpty) {
+                return Column(
+                  children: [
+                    controller.myInfo.elementAt(0).photo != null
+                        ? SizedBox(
+                            height: 100,
+                            width: 100,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: AppCachedNetworkImage(
+                                imageUrl: controller.myInfo
+                                    .elementAt(0)
+                                    .photo
+                                    .toString(),
+                                fit: BoxFit.fill,
+                              ),
                             ),
+                          )
+                        : const Icon(
+                            Icons.person,
+                            size: 100,
                           ),
-                        )
-                      : const Icon(
-                          Icons.person,
-                          size: 100,
-                        ),
-                  SizedBox(
-                    width: 250,
-                    height: 40,
-                    child: Text(
-                      controller.myInfo.elementAt(0).name != null
-                          ? controller.myInfo.elementAt(0).name.toString()
-                          : "No name found",
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          fontFamily: 'Poppins'),
-                      maxLines: 2,
-                      textAlign: TextAlign.center,
+                    SizedBox(
+                      width: 250,
+                      height: 40,
+                      child: Text(
+                        controller.myInfo.elementAt(0).name != null
+                            ? controller.myInfo.elementAt(0).name.toString()
+                            : "No name found",
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            fontFamily: 'Poppins'),
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 250,
-                    height: 40,
-                    child: Text(
-                      controller.myInfo.elementAt(0).currentInstitution != null
-                          ? controller.myInfo
-                              .elementAt(0)
-                              .currentInstitution
-                              .toString()
-                          : "No name found",
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontFamily: 'Poppins'),
-                      maxLines: 2,
-                      textAlign: TextAlign.center,
+                    SizedBox(
+                      width: 250,
+                      height: 40,
+                      child: Text(
+                        controller.myInfo.elementAt(0).currentInstitution !=
+                                null
+                            ? controller.myInfo
+                                .elementAt(0)
+                                .currentInstitution
+                                .toString()
+                            : "No name found",
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontFamily: 'Poppins'),
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                  ),
-                ],
-              );
-            }
-            return const CircularProgressIndicator();
-          }),
+                  ],
+                );
+              }
+              return const CircularProgressIndicator();
+            },
+          ),
         ],
       ),
     );

@@ -22,8 +22,8 @@ class ProductPage extends GetView<ProductController> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(
-            left: 15,
-            right: 15,
+            left: 20,
+            right: 20,
           ),
           child: getProductList(),
         ),

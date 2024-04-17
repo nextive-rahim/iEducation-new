@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ieducation/app.dart';
 import 'package:ieducation/colors.dart';
-import 'package:ieducation/common-widget/common-header.dart';
 import 'package:ieducation/common-widget/left-aligin-title.dart';
 import 'package:ieducation/pages/course/controller/course_controller.dart';
 import 'package:ieducation/pages/course/model/category_children_model.dart'
@@ -51,35 +50,32 @@ class _CourseAndCategoryPageState extends State<CourseAndCategoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    double responsiveHeight = MediaQuery.of(context).size.height - 128;
     return Scaffold(
       backgroundColor: CustomColors.pageBackground,
-      body: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20),
-        child: Column(
-          children: [
-            commonHeader('Courses', context),
-            const SizedBox(
-              height: 25,
-            ),
-            Container(
-              height: responsiveHeight,
-              color: CustomColors.bodyBackground,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    leftAlignTitle('Courses'),
-                    getContents(),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    leftAlignTitle('Categories'),
-                    getCategories(),
-                  ],
-                ),
-              ),
-            )
-          ],
+      appBar: AppBar(
+        title: const Text('Courses'),
+        centerTitle: true,
+        backgroundColor: CustomColors.pageBackground,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 20,
+            right: 20,
+          ),
+          child: Column(
+            children: [
+              Column(
+                children: [
+                  leftAlignTitle('Courses'),
+                  getContents(),
+                  const SizedBox(height: 20),
+                  leftAlignTitle('Categories'),
+                  getCategories(),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

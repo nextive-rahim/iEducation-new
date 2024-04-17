@@ -3,7 +3,6 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:ieducation/app.dart';
 import 'package:ieducation/colors.dart';
-import 'package:ieducation/common-widget/common-header.dart';
 import 'package:ieducation/common-widget/left-aligin-title.dart';
 import 'package:ieducation/pages/course/controller/course_controller.dart';
 import 'package:ieducation/pages/course/view/course-detail/course-detail-section/course-detail-section.dart';
@@ -41,47 +40,44 @@ class _CourseDetailState extends State<CourseDetail> {
 
   @override
   Widget build(BuildContext context) {
-    double responsiveHeight = MediaQuery.of(context).size.height - 100;
     return Scaffold(
       backgroundColor: CustomColors.pageBackground,
-      body: Padding(
-        padding: const EdgeInsets.only(
-          left: 15,
-          right: 15,
-        ),
-        child: SingleChildScrollView(
+      appBar: AppBar(
+        title: const Text('Course Details'),
+        centerTitle: true,
+        backgroundColor: CustomColors.pageBackground,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 20,
+            right: 20,
+          ),
           child: Column(
             children: [
-              commonHeader('Course Details', context),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: responsiveHeight,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      getVideoSection(),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      CourseTitleSection(
-                        title: controller.selectedFreeCourse!.title.toString(),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      getInstructorSection(),
-                      getDescription(),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      getCourseContents(),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      buyCourseSection()
-                    ],
+              Column(
+                children: [
+                  getVideoSection(),
+                  const SizedBox(
+                    height: 25,
                   ),
-                ),
+                  CourseTitleSection(
+                    title: controller.selectedFreeCourse!.title.toString(),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  getInstructorSection(),
+                  getDescription(),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  getCourseContents(),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  buyCourseSection()
+                ],
               )
             ],
           ),

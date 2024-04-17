@@ -64,9 +64,10 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(
-            left: 15,
-            right: 15,
+            left: 20,
+            right: 20,
             bottom: 10,
+            top: 20,
           ),
           child: RefreshIndicator(
             onRefresh: controller.onRefresh,
@@ -88,7 +89,7 @@ class _HomePageState extends State<HomePage> {
     return AppBar(
       leadingWidth: 0,
       automaticallyImplyLeading: false,
-      backgroundColor: CustomColors.pageBackground,
+      backgroundColor: Colors.white,
       elevation: 0,
       toolbarHeight: 65,
       title: Row(
@@ -185,6 +186,7 @@ class _HomePageState extends State<HomePage> {
         leftAlignTitle('Free contents'),
         const SizedBox(height: 10),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             getFreeContentsItem('exam'),
             const SizedBox(width: 20),
@@ -218,41 +220,40 @@ class _HomePageState extends State<HomePage> {
         }
       },
       child: Container(
-        height: 113,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(11.0),
         ),
-        child: Center(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 14,
-              ),
-              SizedBox(
-                height: 50,
-                width: 50,
-                child: Center(
-                  child: Image.asset(
-                    icon,
-                    scale: 1,
-                    cacheHeight: 131,
-                    cacheWidth: 131,
+        child: Padding(
+          padding: const EdgeInsets.all(25.0),
+          child: Center(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 80,
+                  width: 80,
+                  child: Center(
+                    child: Image.asset(
+                      icon,
+                      scale: 1,
+                      cacheHeight: 131,
+                      cacheWidth: 131,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Text(
-                text,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w400,
+                const SizedBox(
+                  height: 15,
                 ),
-              )
-            ],
+                Text(
+                  text,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontFamily: 'poppins',
+                    fontWeight: FontWeight.w400,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
