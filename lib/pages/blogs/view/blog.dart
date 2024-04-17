@@ -204,10 +204,14 @@ class _BlogPageState extends State<BlogPage> {
 
           return GestureDetector(
             onTap: () {
-              Get.toNamed(RoutesPath.blogDetailPage, arguments: [
-                controller.blogList.elementAt(index).slug.toString(),
-                controller.blogList.elementAt(index).id.toString()
-              ]);
+              Get.toNamed(
+                RoutesPath.blogDetailPage,
+                arguments: [
+                  controller.blogList.elementAt(index).slug.toString(),
+                  controller.blogList.elementAt(index).id.toString(),
+                  controller.blogList.elementAt(index).video.toString()
+                ],
+              );
               // controller.getSingleBlog(
               //   controller.blogList.elementAt(index).slug.toString(),
               // );

@@ -59,7 +59,7 @@ class _MainState extends State<Main> {
       // home: Obx(() {
       //   if (controller.state is UnAuthenticated) {
       //     Get.offAllNamed(RoutesPath.login);
-      //   }
+      //   } 
       //   if (controller.state is Authenticated) {
       //     Get.offAllNamed(RoutesPath
       //         .bottomNavPage); //user: (controller.state as Authenticated).user,

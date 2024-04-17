@@ -20,13 +20,8 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
   late final PodPlayerController podController;
   @override
   void initState() {
-    podController = PodPlayerController(
-      playVideoFrom: PlayVideoFrom.youtube(
-        controller.singleBlog!.video.toString(),
-        
-      ),
-    )..initialise();
     getBlogDetails();
+
     // TODO: implement initState
     super.initState();
   }
@@ -38,7 +33,13 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
   }
 
   Future<void> getBlogDetails() async {
-    await controller.getSingleBlog(Get.arguments[0]);
+    await controller.getSingleBlog(Get.arguments[0]).then((value) {
+      podController = PodPlayerController(
+        playVideoFrom: PlayVideoFrom.youtube(
+          controller.singleBlog?.video ?? '',
+        ),
+      )..initialise();
+    });
     //   setState(() {
     //     controller.selectedCommentableType = 'post';
     //     controller.selectedCommentableId = Get.arguments[1];
@@ -98,11 +99,12 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
                 ),
               );
             }
-            String url = controller.singleBlog!.video.toString();
-            String photoUrl = controller.singleBlog!.photo.toString();
-            String description = controller.singleBlog!.body.toString();
-            String createdAt = controller.singleBlog!.createdAt.toString();
-            String title = controller.singleBlog!.title.toString();
+            String url = controller.singleBlog?.video ?? 'null';
+            String photoUrl = controller.singleBlog?.photo ?? '';
+            String description = controller.singleBlog?.body ?? '';
+            String createdAt =
+                controller.singleBlog?.createdAt.toString() ?? '';
+            String title = controller.singleBlog?.title ?? '';
             return Column(
               children: [
                 url != 'null'
