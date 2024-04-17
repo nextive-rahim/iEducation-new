@@ -4,31 +4,28 @@ import 'package:ieducation/app.dart';
 import 'package:ieducation/colors.dart';
 import 'package:ieducation/common-widget/left-aligin-title.dart';
 import 'package:ieducation/pages/course/controller/course_controller.dart';
+import 'package:ieducation/pages/drawer/drawer.dart';
 import 'package:ieducation/routes.dart';
 import 'package:ieducation/utils/cached_network_image.dart';
 
-class FreeCoursePage extends StatefulWidget {
-  const FreeCoursePage({super.key});
+class AllCoursePage extends StatefulWidget {
+  const AllCoursePage({super.key});
 
   @override
-  State<FreeCoursePage> createState() => _FreeCoursePageState();
+  State<AllCoursePage> createState() => _AllCoursePageState();
 }
 
-class _FreeCoursePageState extends State<FreeCoursePage> {
+class _AllCoursePageState extends State<AllCoursePage> {
   CourseController controller = Get.find();
   final GlobalKey<ScaffoldState> scaffoldKey2 = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      controller.getFreeCourses('free');
+      controller.getAllCourses('');
     });
+
+    super.initState();
   }
 
   @override
@@ -39,11 +36,17 @@ class _FreeCoursePageState extends State<FreeCoursePage> {
     return Scaffold(
       key: scaffoldKey2,
       backgroundColor: CustomColors.pageBackground,
-      appBar: AppBar(
-        elevation: 0,
-        title: const Text('Free Courses'),
-        centerTitle: true,
-      ),
+      drawer: const GetDrawer(),
+      appBar: getAppHeader(),
+      // AppBar(
+      //   leadingWidth: 0,
+      //   automaticallyImplyLeading: false,
+      //   backgroundColor: Colors.white,
+      //   elevation: 0,
+      //   toolbarHeight: 65,
+      //   title: const Text('Courses'),
+      //   centerTitle: true,
+      // ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(
@@ -55,15 +58,15 @@ class _FreeCoursePageState extends State<FreeCoursePage> {
             children: [
               // commonHeader('Courses', context),
               // const SizedBox(height: 5),
-              leftAlignTitle('Free Courses'),
+              leftAlignTitle('All Courses'),
               const SizedBox(height: 10),
               Obx(() {
-                if (controller.courseRefreshing.value) {
+                if (controller.allCourseRefreshing.value) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }
-                if (controller.freeCourseList.isEmpty) {
+                if (controller.allCourseList.isEmpty) {
                   return Center(
                     child: Container(
                       decoration: BoxDecoration(
@@ -97,14 +100,14 @@ class _FreeCoursePageState extends State<FreeCoursePage> {
                     return GestureDetector(
                       onTap: () {
                         controller.selectedFreeCourse =
-                            controller.freeCourseList.elementAt(index);
+                            controller.allCourseList.elementAt(index);
                         controller.getIndividualCourse(
                             context,
-                            controller.freeCourseList
+                            controller.allCourseList
                                 .elementAt(index)
                                 .slug
                                 .toString());
-                        if (controller.freeCourseList
+                        if (controller.allCourseList
                                 .elementAt(index)
                                 .subscriptionStatus ==
                             "active") {
@@ -123,7 +126,7 @@ class _FreeCoursePageState extends State<FreeCoursePage> {
                                 width: 120,
                                 height: 80,
                                 child: AppCachedNetworkImage(
-                                  imageUrl: controller.freeCourseList
+                                  imageUrl: controller.allCourseList
                                       .elementAt(index)
                                       .photo
                                       .toString(),
@@ -140,7 +143,7 @@ class _FreeCoursePageState extends State<FreeCoursePage> {
                                   SizedBox(
                                     width: descriptionWidth - 20.0,
                                     child: Text(
-                                      controller.freeCourseList
+                                      controller.allCourseList
                                           .elementAt(index)
                                           .title
                                           .toString(),
@@ -174,7 +177,7 @@ class _FreeCoursePageState extends State<FreeCoursePage> {
                                               width: 9,
                                             ),
                                             Text(
-                                              controller.freeCourseList
+                                              controller.allCourseList
                                                   .elementAt(index)
                                                   .usersCount
                                                   .toString(),
@@ -200,7 +203,7 @@ class _FreeCoursePageState extends State<FreeCoursePage> {
                       ),
                     );
                   },
-                  itemCount: controller.freeCourseList.length,
+                  itemCount: controller.allCourseList.length,
                   primary: false,
                   shrinkWrap: true,
                 );
@@ -214,11 +217,11 @@ class _FreeCoursePageState extends State<FreeCoursePage> {
 
   Widget getPrice(index) {
     double price = double.parse(AppConstants.getValueOrZero(
-        controller.freeCourseList.elementAt(index).price.toString()));
+        controller.allCourseList.elementAt(index).price.toString()));
     double discountedPrice = double.parse(AppConstants.getValueOrZero(
-        controller.freeCourseList.elementAt(index).discountedPrice.toString()));
+        controller.allCourseList.elementAt(index).discountedPrice.toString()));
 
-    if (controller.freeCourseList.elementAt(index).subscriptionStatus ==
+    if (controller.allCourseList.elementAt(index).subscriptionStatus ==
         "active") {
       return const Padding(
         padding: EdgeInsets.only(right: 8.0),

@@ -4,7 +4,7 @@ import 'package:ieducation/pages/blogs/controller/blog_controller.dart';
 import 'package:ieducation/pages/blogs/view/blog.dart';
 import 'package:ieducation/pages/bottom-navigation/controller/bottom_navigation_controller.dart';
 import 'package:ieducation/pages/course/controller/course_controller.dart';
-import 'package:ieducation/pages/course/view/free_course_page.dart';
+import 'package:ieducation/pages/course/view/all_course.dart';
 import 'package:ieducation/pages/drawer/drawer.dart';
 import 'package:ieducation/pages/home/controller/home_controller.dart';
 import 'package:ieducation/pages/home/view/home_page.dart';
@@ -33,8 +33,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
   int _currentIndex = 0;
   final List<Widget> _children = <Widget>[
     const HomePage(),
-    const FreeCoursePage(),
-     ProductPage(),
+    const AllCoursePage(),
+    ProductPage(),
     const BlogPage(),
   ];
   void _onItemTapped(int index) {

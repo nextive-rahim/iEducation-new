@@ -47,8 +47,8 @@ class CourseController extends GetxController {
   @override
   void onInit() {
     getFeatureCourses('feature');
-    getAllCourses('');
-    getFreeCourses('free');
+  
+   
 
     // TODO: implement onInit
     super.onInit();
