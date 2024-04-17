@@ -94,9 +94,7 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
             return Column(
               children: [
                 url != 'null'
-                    ? ShowVideo(
-                        videoUrl: url,
-                      )
+                    ? ShowVideo(videoUrl: url)
                     : SizedBox(
                         height: 200,
                         width: responsiveWidth,

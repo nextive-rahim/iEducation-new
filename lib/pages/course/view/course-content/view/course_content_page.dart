@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ieducation/colors.dart';
-import 'package:ieducation/common-widget/common-header.dart';
 import 'package:ieducation/pages/blogs/controller/blog_controller.dart';
 import 'package:ieducation/pages/course/controller/course_controller.dart';
 import 'package:ieducation/pages/course/view/course-content/widgets/course_section_with_count.dart';
@@ -19,24 +18,27 @@ class _CourseContentPageState extends State<CourseContentPage> {
   final blogController = Get.find<BlogController>();
   @override
   Widget build(BuildContext context) {
-    double responsiveHeight = MediaQuery.of(context).size.height - 140;
     String courseName = controller.selectedFreeCourse!.title.toString();
     return Scaffold(
       backgroundColor: CustomColors.pageBackground,
-      body: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20),
-        child: Column(
-          children: [
-            commonHeader(courseName, context),
-            SizedBox(
-              height: responsiveHeight,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [getSectionItem()],
-                ),
-              ),
-            )
-          ],
+      appBar: AppBar(
+        title: Text(courseName),
+        centerTitle: true,
+        backgroundColor: CustomColors.pageBackground,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 20,
+            right: 20,
+          ),
+          child: Column(
+            children: [
+              Column(
+                children: [getSectionItem()],
+              )
+            ],
+          ),
         ),
       ),
     );

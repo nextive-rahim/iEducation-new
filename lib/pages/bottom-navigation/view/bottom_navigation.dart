@@ -34,7 +34,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   final List<Widget> _children = <Widget>[
     const HomePage(),
     const FreeCoursePage(),
-    const ProductPage(),
+     ProductPage(),
     const BlogPage(),
   ];
   void _onItemTapped(int index) {

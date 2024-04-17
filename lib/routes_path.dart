@@ -224,7 +224,7 @@ class Routes {
       curve: Curves.easeInOut,
       transitionDuration: const Duration(milliseconds: 300),
       name: RoutesPath.productPage,
-      page: () => const ProductPage(),
+      page: () => ProductPage(),
     ),
     GetPage(
       transition: Transition.rightToLeft,

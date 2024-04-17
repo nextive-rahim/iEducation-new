@@ -4,6 +4,7 @@ import 'package:ieducation/app.dart';
 import 'package:ieducation/colors.dart';
 import 'package:ieducation/common-widget/left-aligin-title.dart';
 import 'package:ieducation/pages/course/controller/course_controller.dart';
+import 'package:ieducation/pages/drawer/drawer.dart';
 import 'package:ieducation/routes.dart';
 import 'package:ieducation/utils/cached_network_image.dart';
 
@@ -16,6 +17,7 @@ class FreeCoursePage extends StatefulWidget {
 
 class _FreeCoursePageState extends State<FreeCoursePage> {
   CourseController controller = Get.find();
+  final GlobalKey<ScaffoldState> scaffoldKey2 = GlobalKey<ScaffoldState>();
   String courseTitle = '';
   @override
   void initState() {
@@ -48,17 +50,25 @@ class _FreeCoursePageState extends State<FreeCoursePage> {
 
     double descriptionWidth = (responsiveWidth / 10.0) * 6;
     return Scaffold(
+      key: scaffoldKey2,
       backgroundColor: CustomColors.pageBackground,
-      appBar: AppBar(
-        title: const Text('Courses'),
-        centerTitle: true,
-        backgroundColor: CustomColors.pageBackground,
-      ),
+      drawer: const GetDrawer(),
+      appBar: getAppHeader(),
+      // AppBar(
+      //   leadingWidth: 0,
+      //   automaticallyImplyLeading: false,
+      //   backgroundColor: Colors.white,
+      //   elevation: 0,
+      //   toolbarHeight: 65,
+      //   title: const Text('Courses'),
+      //   centerTitle: true,
+      // ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(
             left: 20,
             right: 20,
+            top: 20,
           ),
           child: Column(
             children: [
@@ -311,6 +321,70 @@ class _FreeCoursePageState extends State<FreeCoursePage> {
           ],
         )
       ],
+    );
+  }
+
+  AppBar getAppHeader() {
+    return AppBar(
+      leadingWidth: 0,
+      automaticallyImplyLeading: false,
+      backgroundColor: Colors.white,
+      elevation: 0,
+      toolbarHeight: 65,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 2,
+            child: GestureDetector(
+              onTap: () => scaffoldKey2.currentState!.openDrawer(),
+              child: SizedBox(
+                height: 45,
+                width: 45,
+                child: Center(
+                  child: Image.asset(
+                    'assets/images/head_menu.png',
+                    scale: 1,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 6,
+            child: SizedBox(
+              height: 50,
+              width: 97,
+              child: Center(
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  scale: 1,
+                  cacheHeight: 131,
+                  cacheWidth: 310,
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: GestureDetector(
+              onTap: () {
+                Get.toNamed(RoutesPath.noticePage);
+              },
+              child: SizedBox(
+                height: 45,
+                width: 45,
+                child: Center(
+                  child: Image.asset(
+                    'assets/images/head_notification.png',
+                    scale: 1,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -1,29 +1,34 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ieducation/app.dart';
 import 'package:ieducation/colors.dart';
 import 'package:ieducation/common-widget/left-aligin-title.dart';
+import 'package:ieducation/pages/drawer/drawer.dart';
 import 'package:ieducation/pages/products/controller/product_controller.dart';
 import 'package:ieducation/routes.dart';
+import 'package:ieducation/utils/cached_network_image.dart';
 
 class ProductPage extends GetView<ProductController> {
-  const ProductPage({super.key});
-
+  ProductPage({super.key});
+  final GlobalKey<ScaffoldState> scaffoldKey3 = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey3,
       backgroundColor: CustomColors.pageBackground,
-      appBar: AppBar(
-        title: const Text('Books'),
-        centerTitle: true,
-        backgroundColor: CustomColors.pageBackground,
-      ),
+      drawer: const GetDrawer(),
+      appBar: getAppHeader(),
+      //  AppBar(
+      //   title: const Text('Books'),
+      //   centerTitle: true,
+      //   backgroundColor: CustomColors.pageBackground,
+      // ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(
             left: 20,
             right: 20,
+            top: 20,
           ),
           child: getProductList(),
         ),
@@ -98,13 +103,11 @@ class ProductPage extends GetView<ProductController> {
                           topRight: Radius.circular(11),
                           topLeft: Radius.circular(11),
                         ),
-                        child: CachedNetworkImage(
+                        child: AppCachedNetworkImage(
                           fit: BoxFit.fill,
                           imageUrl:
                               controller.productList[index].photo.toString(),
-                          errorWidget: (context, url, error) {
-                            return const Icon(Icons.error);
-                          },
+                          width: double.infinity,
                         ),
                       ),
                     ),
@@ -229,6 +232,70 @@ class ProductPage extends GetView<ProductController> {
           width: 10,
         ),
       ],
+    );
+  }
+
+  AppBar getAppHeader() {
+    return AppBar(
+      leadingWidth: 0,
+      automaticallyImplyLeading: false,
+      backgroundColor: Colors.white,
+      elevation: 0,
+      toolbarHeight: 65,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 2,
+            child: GestureDetector(
+              onTap: () => scaffoldKey3.currentState!.openDrawer(),
+              child: SizedBox(
+                height: 45,
+                width: 45,
+                child: Center(
+                  child: Image.asset(
+                    'assets/images/head_menu.png',
+                    scale: 1,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 6,
+            child: SizedBox(
+              height: 50,
+              width: 97,
+              child: Center(
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  scale: 1,
+                  cacheHeight: 131,
+                  cacheWidth: 310,
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: GestureDetector(
+              onTap: () {
+                Get.toNamed(RoutesPath.noticePage);
+              },
+              child: SizedBox(
+                height: 45,
+                width: 45,
+                child: Center(
+                  child: Image.asset(
+                    'assets/images/head_notification.png',
+                    scale: 1,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

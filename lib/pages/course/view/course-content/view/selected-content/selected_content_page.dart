@@ -3,9 +3,9 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:ieducation/colors.dart';
 import 'package:ieducation/common-widget/left-aligin-title.dart';
+import 'package:ieducation/common-widget/show_video.dart';
 import 'package:ieducation/pages/course/controller/course_controller.dart';
 import 'package:ieducation/pages/course/widgets/CommonButton.dart';
-import 'package:ieducation/pages/course/widgets/VideoPlaySection.dart';
 import 'package:ieducation/routes.dart';
 
 class SelectedContentPage extends StatefulWidget {
@@ -79,9 +79,7 @@ class _SelectedContentPageState extends State<SelectedContentPage> {
     return SizedBox(
       height: 200,
       child: url != 'null'
-          ? VideoPlaySection(
-        link: url,
-      )
+          ? ShowVideo(videoUrl: url,)
           : const Icon(
         Icons.error,
         color: Colors.orangeAccent,

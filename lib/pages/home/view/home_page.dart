@@ -64,8 +64,8 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(
-            left: 20,
-            right: 20,
+            left: 10,
+            right: 10,
             bottom: 10,
             top: 20,
           ),
@@ -185,13 +185,16 @@ class _HomePageState extends State<HomePage> {
       children: [
         leftAlignTitle('Free contents'),
         const SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            getFreeContentsItem('exam'),
-            const SizedBox(width: 20),
-            getFreeContentsItem('course'),
-          ],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              getFreeContentsItem('exam'),
+              const SizedBox(width: 20),
+              getFreeContentsItem('course'),
+            ],
+          ),
         )
       ],
     );
@@ -266,73 +269,103 @@ class _HomePageState extends State<HomePage> {
         const SizedBox(height: 20),
         leftAlignTitle('Categories'),
         const SizedBox(height: 10),
-        Obx(() {
-          return GridView.builder(
-            shrinkWrap: true,
-            itemCount: courseController.courseCategories.length,
-            padding: EdgeInsets.zero,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) => GestureDetector(
-              onTap: () {
-                bool isBook = courseController.courseCategories
-                        .elementAt(index)
-                        .photo
-                        .toString() ==
-                    "assets/images/bookHouse.png";
-                if (isBook) {
-                  Get.toNamed(RoutesPath.productPage);
-                } else {
-                  Get.toNamed(
-                    RoutesPath.courseAndCategoryPage,
-                    arguments: [
-                      courseController.courseCategories
-                          .elementAt(index)
-                          .slug
-                          .toString()
-                    ],
-                  );
-                }
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(11),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: ClipRRect(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Obx(() {
+            if (courseController.categoryRefreshing.value) {
+              return GridView.builder(
+                shrinkWrap: true,
+                itemCount: 5,
+                padding: EdgeInsets.zero,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) => Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(11),
-                    child: courseController.courseCategories
-                                .elementAt(index)
-                                .photo
-                                .toString() ==
-                            "assets/images/bookHouse.png"
-                        ? Image.asset(
-                            'assets/images/bookHouse.png',
-                            scale: 1,
-                            cacheHeight: 143,
-                            cacheWidth: 390,
-                          )
-                        : AppCachedNetworkImage(
-                            imageUrl: courseController.courseCategories
-                                .elementAt(index)
-                                .photo
-                                .toString(),
-                            cachedHeight: 180,
-                            cachedWidth: 290,
-                          ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(11),
+                      child: Container(color: Colors.white),
+                    ),
+                  ),
+                ),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 3 / 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                ),
+              );
+            }
+            return GridView.builder(
+              shrinkWrap: true,
+              itemCount: courseController.courseCategories.length,
+              padding: EdgeInsets.zero,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) => GestureDetector(
+                onTap: () {
+                  bool isBook = courseController.courseCategories
+                          .elementAt(index)
+                          .photo
+                          .toString() ==
+                      "assets/images/bookHouse.png";
+                  if (isBook) {
+                    Get.toNamed(RoutesPath.productPage);
+                  } else {
+                    Get.toNamed(
+                      RoutesPath.courseAndCategoryPage,
+                      arguments: [
+                        courseController.courseCategories
+                            .elementAt(index)
+                            .slug
+                            .toString()
+                      ],
+                    );
+                  }
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(11),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(11),
+                      child: courseController.courseCategories
+                                  .elementAt(index)
+                                  .photo
+                                  .toString() ==
+                              "assets/images/bookHouse.png"
+                          ? Image.asset(
+                              'assets/images/bookHouse.png',
+                              scale: 1,
+                              cacheHeight: 143,
+                              cacheWidth: 390,
+                            )
+                          : AppCachedNetworkImage(
+                              imageUrl: courseController.courseCategories
+                                  .elementAt(index)
+                                  .photo
+                                  .toString(),
+                              cachedHeight: 180,
+                              cachedWidth: 290,
+                            ),
+                    ),
                   ),
                 ),
               ),
-            ),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 3 / 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-            ),
-          );
-        }),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 3 / 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+              ),
+            );
+          }),
+        ),
       ],
     );
   }
@@ -343,7 +376,10 @@ class _HomePageState extends State<HomePage> {
         const SizedBox(height: 20),
         leftAlignTitle('Featured Courses'),
         const SizedBox(height: 10),
-        getContents(),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: getContents(),
+        ),
       ],
     );
   }
@@ -354,8 +390,21 @@ class _HomePageState extends State<HomePage> {
     return Obx(
       () {
         if (courseController.courseRefreshing.value) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.zero,
+            itemBuilder: (context, index) {
+              return Card(
+                child: Container(
+                  height: 80,
+                  width: descriptionWidth,
+                  color: Colors.white,
+                ),
+              );
+            },
+            itemCount: 5,
+            primary: false,
+            shrinkWrap: true,
           );
         }
         if (!courseController.courseRefreshing.value &&
