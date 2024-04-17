@@ -71,7 +71,7 @@ class _CourseSectionCountState extends State<CourseSectionCount> {
           ),
         ),
         const SizedBox(
-          height: 15,
+          height: 15
         )
       ],
     );

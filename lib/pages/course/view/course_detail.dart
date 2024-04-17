@@ -207,8 +207,28 @@ class _CourseDetailState extends State<CourseDetail> {
     double responsiveTextWidth = MediaQuery.of(context).size.width - 130;
     return Obx(() {
       if (controller.courseRefreshing.value) {
-        return const Center(
-          child: CircularProgressIndicator(),
+        return ListView.builder(
+          padding: EdgeInsets.zero,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                  ),
+                  height: 86,
+                  width: responsiveWidth,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+              ],
+            );
+          },
+          itemCount: 3,
+          primary: false,
+          shrinkWrap: true,
         );
       }
       if (controller.selectedCourseData == null) {

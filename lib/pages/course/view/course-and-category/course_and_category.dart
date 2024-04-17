@@ -86,8 +86,19 @@ class _CourseAndCategoryPageState extends State<CourseAndCategoryPage> {
     double imageWidth = (responsiveWidth / 10.0) * 4;
     double descriptionWidth = (responsiveWidth / 10.0) * 6;
     if (controller.courseRefreshing.value) {
-      return const Center(
-        child: CircularProgressIndicator(),
+      return ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.zero,
+        itemBuilder: (context, index) {
+          return Card(
+            child: Container(
+              height: 100,
+            ),
+          );
+        },
+        itemCount: 10,
+        primary: false,
+        shrinkWrap: true,
       );
     }
     if (courseChildList == null || !courseChildList!.isNotEmpty) {
@@ -140,6 +151,7 @@ class _CourseAndCategoryPageState extends State<CourseAndCategoryPage> {
                   children: [
                     SizedBox(
                       width: imageWidth,
+                      height: 100,
                       child: AppCachedNetworkImage(
                         imageUrl:
                             courseChildList!.elementAt(index).photo.toString(),

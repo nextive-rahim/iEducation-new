@@ -12,6 +12,8 @@ import 'package:ieducation/utils/handleErrorMessage.dart';
 
 class CourseController extends GetxController {
   RxList<CourseModelData> freeCourseList = <CourseModelData>[].obs;
+  RxList<CourseModelData> allCourseList = <CourseModelData>[].obs;
+  RxList<CourseModelData> featureCourseList = <CourseModelData>[].obs;
   RxList<CourseModelData> myCourseList = <CourseModelData>[].obs;
   RxList<CourseModelData> courseList = <CourseModelData>[].obs;
   RxList<CourseCategoryData> courseCategories = <CourseCategoryData>[].obs;
@@ -40,9 +42,14 @@ class CourseController extends GetxController {
   String coursePageTitle = '';
 
   var courseRefreshing = false.obs;
+  var allCourseRefreshing = false.obs;
+  var featureCourseRefreshing = false.obs;
   @override
   void onInit() {
-    getFreeCourses('');
+    getFeatureCourses('feature');
+    getAllCourses('');
+    getFreeCourses('free');
+
     // TODO: implement onInit
     super.onInit();
   }
@@ -53,6 +60,28 @@ class CourseController extends GetxController {
     courseRefreshing.value = false;
     if (result['statusCode'] == 200) {
       freeCourseList.value = result['data'].data;
+    } else {
+      /*handleErrorMessage(context, result);*/
+    }
+  }
+
+  void getAllCourses(url) async {
+    allCourseRefreshing.value = true;
+    var result = await api.getCourseApi(url);
+    allCourseRefreshing.value = false;
+    if (result['statusCode'] == 200) {
+      allCourseList.value = result['data'].data;
+    } else {
+      /*handleErrorMessage(context, result);*/
+    }
+  }
+
+  void getFeatureCourses(url) async {
+    featureCourseRefreshing.value = true;
+    var result = await api.getCourseApi(url);
+    featureCourseRefreshing.value = false;
+    if (result['statusCode'] == 200) {
+      featureCourseList.value = result['data'].data;
     } else {
       /*handleErrorMessage(context, result);*/
     }

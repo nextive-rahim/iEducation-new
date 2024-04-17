@@ -47,8 +47,25 @@ class _CourseContentPageState extends State<CourseContentPage> {
   Widget getSectionItem() {
     return Obx(() {
       if (controller.courseRefreshing.value) {
-        return const Center(
-          child: CircularProgressIndicator(),
+        return ListView.builder(
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 15),
+              child: Container(
+                constraints: const BoxConstraints(minHeight: 48),
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                      color: CustomColors.itemBorderColor, width: 0.5),
+                  color: Colors.white,
+                ),
+              ),
+            );
+          },
+          itemCount: 10,
+          primary: false,
+          shrinkWrap: true,
         );
       }
       if (!controller.courseRefreshing.value &&

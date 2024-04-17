@@ -217,7 +217,10 @@ class _HomePageState extends State<HomePage> {
             break;
           case 'course':
             {
-              Get.toNamed(RoutesPath.freeCoursePage, arguments: ['free']);
+              Get.toNamed(
+                RoutesPath.freeCoursePage,
+                arguments: ['free'],
+              );
             }
             break;
         }
@@ -389,7 +392,7 @@ class _HomePageState extends State<HomePage> {
     double descriptionWidth = (responsiveWidth / 10.0) * 6;
     return Obx(
       () {
-        if (courseController.courseRefreshing.value) {
+        if (courseController.featureCourseRefreshing.value) {
           return ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             padding: EdgeInsets.zero,
@@ -407,8 +410,7 @@ class _HomePageState extends State<HomePage> {
             shrinkWrap: true,
           );
         }
-        if (!courseController.courseRefreshing.value &&
-            courseController.freeCourseList.isEmpty) {
+        if (courseController.featureCourseList.isEmpty) {
           return Center(
             child: Container(
               decoration:
@@ -444,14 +446,14 @@ class _HomePageState extends State<HomePage> {
             return GestureDetector(
               onTap: () {
                 courseController.selectedFreeCourse =
-                    courseController.freeCourseList.elementAt(index);
+                    courseController.featureCourseList.elementAt(index);
                 courseController.getIndividualCourse(
                     context,
-                    courseController.freeCourseList
+                    courseController.featureCourseList
                         .elementAt(index)
                         .slug
                         .toString());
-                if (courseController.freeCourseList
+                if (courseController.featureCourseList
                         .elementAt(index)
                         .subscriptionStatus ==
                     "active") {
@@ -472,7 +474,7 @@ class _HomePageState extends State<HomePage> {
                         width: 120,
                         height: 80,
                         child: AppCachedNetworkImage(
-                          imageUrl: courseController.freeCourseList
+                          imageUrl: courseController.featureCourseList
                               .elementAt(index)
                               .photo
                               .toString(),
@@ -488,7 +490,7 @@ class _HomePageState extends State<HomePage> {
                           SizedBox(
                             width: descriptionWidth - 20.0,
                             child: Text(
-                              courseController.freeCourseList
+                              courseController.featureCourseList
                                   .elementAt(index)
                                   .title
                                   .toString(),
@@ -519,7 +521,7 @@ class _HomePageState extends State<HomePage> {
                                       width: 9,
                                     ),
                                     Text(
-                                      courseController.freeCourseList
+                                      courseController.featureCourseList
                                           .elementAt(index)
                                           .usersCount
                                           .toString(),
@@ -544,7 +546,7 @@ class _HomePageState extends State<HomePage> {
               ),
             );
           },
-          itemCount: courseController.freeCourseList.length,
+          itemCount: courseController.featureCourseList.length,
           primary: false,
           shrinkWrap: true,
         );
@@ -554,13 +556,15 @@ class _HomePageState extends State<HomePage> {
 
   Widget getPrice(index) {
     double price = double.parse(AppConstants.getValueOrZero(
-        courseController.freeCourseList.elementAt(index).price.toString()));
+        courseController.featureCourseList.elementAt(index).price.toString()));
     double discountedPrice = double.parse(AppConstants.getValueOrZero(
-        courseController.freeCourseList
+        courseController.featureCourseList
             .elementAt(index)
             .discountedPrice
             .toString()));
-    if (courseController.freeCourseList.elementAt(index).subscriptionStatus ==
+    if (courseController.featureCourseList
+            .elementAt(index)
+            .subscriptionStatus ==
         "active") {
       return const Padding(
         padding: EdgeInsets.only(right: 8.0),
