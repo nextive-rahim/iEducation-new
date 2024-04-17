@@ -59,8 +59,21 @@ class _FreeCoursePageState extends State<FreeCoursePage> {
               const SizedBox(height: 10),
               Obx(() {
                 if (controller.courseRefreshing.value) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.zero,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        child: Container(
+                          height: 80,
+                          width: descriptionWidth,
+                          color: Colors.white,
+                        ),
+                      );
+                    },
+                    itemCount: 5,
+                    primary: false,
+                    shrinkWrap: true,
                   );
                 }
                 if (controller.freeCourseList.isEmpty) {

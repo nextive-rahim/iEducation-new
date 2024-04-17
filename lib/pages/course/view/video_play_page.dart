@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ieducation/colors.dart';
 import 'package:ieducation/common-widget/common_comment_widget.dart';
-import 'package:ieducation/common-widget/show_video.dart';
 import 'package:ieducation/pages/blogs/controller/blog_controller.dart';
+import 'package:pod_player/pod_player.dart';
 
 class VideoPlayPage extends StatefulWidget {
   const VideoPlayPage({
@@ -19,22 +19,16 @@ class VideoPlayPage extends StatefulWidget {
 }
 
 class _VideoPlayPageState extends State<VideoPlayPage> {
-  // late YoutubePlayerController _controller;
+  late final PodPlayerController controller;
 
   @override
   void initState() {
     super.initState();
-    // _controller = YoutubePlayerController(
-    //   initialVideoId: YoutubePlayer.convertUrlToId(widget.videoLink ?? '')!,
-    //   flags: const YoutubePlayerFlags(
-    //     autoPlay: true,
-    //     mute: false,
-    //     hideThumbnail: true,
-    //     enableCaption: false,
-    //     forceHD: false,
-    //     loop: false,
-    //   ),
-    // );
+    controller = PodPlayerController(
+      playVideoFrom: PlayVideoFrom.youtube(
+        widget.videoLink ?? '',
+      ),
+    )..initialise();
 
     final blogController = Get.find<BlogController>();
     blogController.selectedCommentableId = widget.contentId.toString();
@@ -53,7 +47,7 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
 
   @override
   void dispose() {
-    // _controller.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -62,26 +56,26 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
     return Scaffold(
       backgroundColor: CustomColors.pageBackground,
       appBar: _buildAppBar(),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        children: [
-          ShowVideo(
-            videoUrl: widget.videoLink ?? '',
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: 20,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            PodVideoPlayer(controller: controller),
+            const Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 20,
+              ),
+              child: commonCommentWidget(),
             ),
-            child: commonCommentWidget(),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
   AppBar? _buildAppBar() {
     return AppBar(
-      backgroundColor: CustomColors.pageBackground,
+      backgroundColor: CustomColors.appBarColor,
       iconTheme: const IconThemeData(
         color: Colors.black,
         size: 20,

@@ -3,10 +3,10 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:ieducation/colors.dart';
 import 'package:ieducation/common-widget/left-aligin-title.dart';
-import 'package:ieducation/common-widget/show_video.dart';
 import 'package:ieducation/pages/course/controller/course_controller.dart';
 import 'package:ieducation/pages/course/widgets/CommonButton.dart';
 import 'package:ieducation/routes.dart';
+import 'package:pod_player/pod_player.dart';
 
 class SelectedContentPage extends StatefulWidget {
   const SelectedContentPage({super.key});
@@ -17,13 +17,24 @@ class SelectedContentPage extends StatefulWidget {
 
 class _SelectedContentPageState extends State<SelectedContentPage> {
   final controller = Get.put(CourseController());
-
+  late final PodPlayerController podController;
   String fileName = '';
   @override
   void initState() {
+    podController = PodPlayerController(
+      playVideoFrom: PlayVideoFrom.youtube(
+        controller.selectedCourseContent!.video!.link.toString(),
+      ),
+    )..initialise();
     // TODO: implement initState
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    podController.dispose();
+    super.dispose();
   }
 
   @override
@@ -79,19 +90,19 @@ class _SelectedContentPageState extends State<SelectedContentPage> {
     return SizedBox(
       height: 200,
       child: url != 'null'
-          ? ShowVideo(videoUrl: url,)
+          ? PodVideoPlayer(controller: podController)
           : const Icon(
-        Icons.error,
-        color: Colors.orangeAccent,
-        size: 40,
-      ),
+              Icons.error,
+              color: Colors.orangeAccent,
+              size: 40,
+            ),
     );
   }
 
   Widget getDescription() {
     double responsiveWidth = MediaQuery.of(context).size.width - 40;
     String description =
-    controller.selectedCourseContent!.description.toString();
+        controller.selectedCourseContent!.description.toString();
     if (description == 'null') {
       return const SizedBox(
         height: 133,
@@ -112,8 +123,7 @@ class _SelectedContentPageState extends State<SelectedContentPage> {
           width: responsiveWidth,
           padding: const EdgeInsets.all(10),
           child: HtmlWidget(
-        description,
-           
+            description,
           ),
         )
       ],
@@ -123,9 +133,9 @@ class _SelectedContentPageState extends State<SelectedContentPage> {
   Widget getBottom() {
     int nextIndex = controller.selectedCourseContentIndex! + 1;
     bool lastIndex =
-    controller.selectedCourseSection!.contents!.length == nextIndex
-        ? true
-        : false;
+        controller.selectedCourseSection!.contents!.length == nextIndex
+            ? true
+            : false;
     if (lastIndex) return const SizedBox();
     return GestureDetector(
       onTap: () {

@@ -5,8 +5,7 @@ import 'package:ieducation/colors.dart';
 import 'package:ieducation/pages/blogs/controller/blog_controller.dart';
 import 'package:ieducation/pages/exam/controller/exam_controller.dart';
 import 'package:ieducation/utils/cached_network_image.dart';
-
-import '../../../common-widget/show_video.dart';
+import 'package:pod_player/pod_player.dart';
 
 class BlogDetailPage extends StatefulWidget {
   const BlogDetailPage({super.key});
@@ -18,11 +17,24 @@ class BlogDetailPage extends StatefulWidget {
 class _BlogDetailPageState extends State<BlogDetailPage> {
   final controller = Get.find<BlogController>();
   final examController = Get.put(ExamController());
+  late final PodPlayerController podController;
   @override
   void initState() {
+    podController = PodPlayerController(
+      playVideoFrom: PlayVideoFrom.youtube(
+        controller.singleBlog!.video.toString(),
+        
+      ),
+    )..initialise();
     getBlogDetails();
     // TODO: implement initState
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    podController.dispose();
+    super.dispose();
   }
 
   Future<void> getBlogDetails() async {
@@ -94,7 +106,7 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
             return Column(
               children: [
                 url != 'null'
-                    ? ShowVideo(videoUrl: url)
+                    ? PodVideoPlayer(controller: podController)
                     : SizedBox(
                         height: 200,
                         width: responsiveWidth,

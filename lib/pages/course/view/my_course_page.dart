@@ -39,150 +39,156 @@ class _MyCoursePageState extends State<MyCoursePage> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(
-            left: 15,
-            right: 15,
+            left: 10,
+            right: 10,
           ),
           child: Column(
             children: [
               leftAlignTitle('My Courses'),
               const SizedBox(height: 10),
-              Obx(
-                () {
-                  if (controller.courseRefreshing.value) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  if (controller.myCourseList.isEmpty) {
-                    return Center(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        padding: const EdgeInsets.only(top: 20),
-                        width: 250,
-                        height: 120,
-                        child: const Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.search,
-                              size: 50,
-                            ),
-                            Text(
-                              'No course is found',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.bold,
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 10,
+                  right: 10,
+                ),
+                child: Obx(
+                  () {
+                    if (controller.courseRefreshing.value) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (controller.myCourseList.isEmpty) {
+                      return Center(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          padding: const EdgeInsets.only(top: 20),
+                          width: 250,
+                          height: 120,
+                          child: const Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.search,
+                                size: 50,
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  }
-
-                  return ListView.builder(
-                    padding: EdgeInsets.zero,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          controller.selectedFreeCourse =
-                              controller.myCourseList[index];
-                          controller.getIndividualCourse(context,
-                              controller.myCourseList[index].slug.toString());
-                          if (controller
-                                  .myCourseList[index].subscriptionStatus ==
-                              "active") {
-                            Get.toNamed(RoutesPath.courseContentPage);
-                          } else {
-                            Get.toNamed(RoutesPath.courseDetail);
-                          }
-                        },
-                        child: Card(
-                          child: SizedBox(
-                            height: 80,
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  height: 80,
-                                  width: 120,
-                                  child: AppCachedNetworkImage(
-                                    imageUrl: controller
-                                        .myCourseList[index].photo
-                                        .toString(),
-                                    cachedHeight: 145,
-                                    cachedWidth: 256,
-                                  ),
+                              Text(
+                                'No course is found',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.bold,
                                 ),
-                                const SizedBox(width: 10),
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    SizedBox(
-                                      width: descriptionWidth - 20.0,
-                                      child: Text(
-                                        controller.myCourseList[index].title
-                                            .toString(),
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                          fontFamily: 'Poppins',
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: descriptionWidth - 25.0,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              SizedBox(
-                                                height: 18,
-                                                width: 17,
-                                                child: Center(
-                                                  child: Image.asset(
-                                                    'assets/images/enrolled.png',
-                                                    scale: 1,
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(width: 9),
-                                              Text(
-                                                controller.myCourseList[index]
-                                                    .usersCount
-                                                    .toString(),
-                                                style: const TextStyle(
-                                                  fontFamily: 'Poppins',
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 12,
-                                                  color: CustomColors
-                                                      .enrolledColor,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          getPrice(index)
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       );
-                    },
-                    itemCount: controller.myCourseList.length,
-                    primary: false,
-                    shrinkWrap: true,
-                  );
-                },
+                    }
+
+                    return ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            controller.selectedFreeCourse =
+                                controller.myCourseList[index];
+                            controller.getIndividualCourse(context,
+                                controller.myCourseList[index].slug.toString());
+                            if (controller
+                                    .myCourseList[index].subscriptionStatus ==
+                                "active") {
+                              Get.toNamed(RoutesPath.courseContentPage);
+                            } else {
+                              Get.toNamed(RoutesPath.courseDetail);
+                            }
+                          },
+                          child: Card(
+                            child: SizedBox(
+                              height: 80,
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    height: 80,
+                                    width: 120,
+                                    child: AppCachedNetworkImage(
+                                      imageUrl: controller
+                                          .myCourseList[index].photo
+                                          .toString(),
+                                      cachedHeight: 145,
+                                      cachedWidth: 256,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                        width: descriptionWidth - 20.0,
+                                        child: Text(
+                                          controller.myCourseList[index].title
+                                              .toString(),
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14,
+                                            fontFamily: 'Poppins',
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: descriptionWidth - 25.0,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                SizedBox(
+                                                  height: 18,
+                                                  width: 17,
+                                                  child: Center(
+                                                    child: Image.asset(
+                                                      'assets/images/enrolled.png',
+                                                      scale: 1,
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 9),
+                                                Text(
+                                                  controller.myCourseList[index]
+                                                      .usersCount
+                                                      .toString(),
+                                                  style: const TextStyle(
+                                                    fontFamily: 'Poppins',
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 12,
+                                                    color: CustomColors
+                                                        .enrolledColor,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            getPrice(index)
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      itemCount: controller.myCourseList.length,
+                      primary: false,
+                      shrinkWrap: true,
+                    );
+                  },
+                ),
               )
             ],
           ),
